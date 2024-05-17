@@ -1,0 +1,50 @@
+/* Estilos para la barra de navegación */
+
+/* Estilos para el cuerpo */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para la barra de navegación */
+#navbar {
+    background-color: #2096ea;
+    padding: 10px 0; /* Añadir espacio en la parte superior e inferior */
+}
+
+#navbar ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0; /* Eliminar el margen */
+}
+
+#navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para hacer que la barra de navegación sea pegajosa en la parte superior */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo{
+    width: 20%;
+    height: 30%;
+}
+footer{
+    max-width: 100%;
+    height: auto;
+    background-color: red;
+
+}
+.social-icons .social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333; /* Cambia el color de los iconos de redes sociales según lo necesites */
+    font-size: 24px;
+}
+
