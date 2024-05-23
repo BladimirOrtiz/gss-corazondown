@@ -78,7 +78,7 @@
      
             <br>
             <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
               <br>
               <div class="container">
@@ -88,7 +88,6 @@
                     </div>
                 @endif
 
-                <!-- Resto del contenido de la página -->
             </div>
 
             </form>

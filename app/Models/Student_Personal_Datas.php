@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\UserFamily\UserFamily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Student_Personal_Datas extends Model
 {
-    protected $table = 'student_personal_datas';
-    protected $primaryKey = 'id_student_personal_datas';
-	public $timestamps = false;
-
     use HasFactory;
 
+    protected $table = 'student_personal_datas';
+    protected $primaryKey = 'id_student_personal_datas';
+    public $timestamps = false;
 
     protected $fillable = [
         'student_name',
@@ -23,7 +21,7 @@ class Student_Personal_Datas extends Model
         'student_grender',
         'student_cellphone',
         'student_tutor',
-        
+        'fk_users',
     ];
 
     public function user()

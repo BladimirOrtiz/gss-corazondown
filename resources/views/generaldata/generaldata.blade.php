@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/address.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/personaldata.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <title>Registro de Datos de Domicilio </title>
+    <title>Registro de Datos Personales</title>
 </head>
 
 <body>
@@ -47,83 +47,46 @@
     </li>
 </ul>
 
-    <section>
-    <div class="container d-flex">
-    <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
-        @csrf
-        <h2 class="text-center">REGISTRO DE DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
+<section class="container mt-5">
+        <form action="" method="get" class="m-auto bg-white p-5 rounded-sm shadow-lg">
+            @csrf
+            <h2 class="text-center">DATOS GENERALES</h2>
+            <h2 class="text-center">DATOS PERSONALES DEL ESTUDIANTE</h2>
+            @if ($userDetails)
+                <p><strong>Nombre:</strong> {{ $userDetails->student_name }}</p>
+                <p><strong>Apellidos:</strong> {{ $userDetails->student_lastnames }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ \Carbon\Carbon::parse($userDetails->stuedent_brithday)->format('d/m/Y') }}</p>
+                <p><strong>CURP:</strong> {{ $userDetails->student_curp }}</p>
+                <p><strong>Género:</strong> {{ $userDetails->student_grender }}</p>
+                <p><strong>Teléfono Móvil del Tutor:</strong> {{ $userDetails->student_cellphone }}</p>
+                <p><strong>Nombre del Tutor:</strong> {{ $userDetails->student_tutor }}</p>
+            @endif
 
-         <!-- Campos adicionales -->
-        <label for="postal_code">Código Postal:</label>
-        <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal" value="{{ old('postal_code') }}" required>
-        @error('postal_code')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
+            <h2 class="text-center mt-4">DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
+            @foreach ($addressData as $address)
+                <p><strong>Código Postal:</strong> {{ $address->postal_code }}</p>
+                <p><strong>Estado:</strong> {{ $address->state_name }}</p>
+                <p><strong>Municipio:</strong> {{ $address->munipality_name }}</p>
+                <p><strong>Calle y Colonia:</strong> {{ $address->colony_name }}</p>
+                <p><strong>Número Exterior:</strong> {{ $address->outdor_number }}</p>
+                <p><strong>Número Interior:</strong> {{ $address->internal_number }}</p>
+                <p><strong>Referencias Geográficas:</strong> {{ $address->geographics_references }}</p>
+            @endforeach
 
-        <label for="state_name">Estado:</label>
-        <input type="text" id="state_name" name="state_name" placeholder="Estado" value="{{ old('state_name') }}" oninput="capitalizeInput(this)" required>
-        @error('state_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
+            <h2 class="text-center mt-4">DATOS MÉDICOS</h2>
+            @if ($medicalData)
+                <p><strong>Diagnóstico Médico:</strong> {{ $medicalData->medical_diagnostic }}</p>
+                <p><strong>Tipo de Sangre:</strong> {{ $medicalData->blood_type }}</p>
+                <p><strong>Nombre de la Alergia:</strong> {{ $medicalData->allergy_name }}</p>
+                <p><strong>Consideraciones Médicas Adicionales:</strong> {{ $medicalData->aditional_consideration }}</p>
+            @endif
 
-        <label for="munipality_name">Municipio:</label>
-        <input type="text" id="munipality_name" name="munipality_name" placeholder="Municipio" value="{{ old('munipality_name') }}" oninput="capitalizeInput(this)" required>
-        @error('munipality_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="colony_name"> Calle y Colonia:</label>
-        <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
-        @error('colony_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="outdor_number">Número Exterior:</label>
-        <input type="text" id="outdor_number" name="outdor_number" placeholder="Número Exterior" value="{{ old('outdor_number') }}" >
-        @error('outdor_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="internal_number">Número Interior:</label>
-        <input type="text" id="internal_number" name="internal_number" placeholder="Número Interior" value="{{ old('internal_number') }}">
-        @error('internal_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="geographics_references">Referencias Geográficas:</label>
-        <textarea id="geographics_references" name="geographics_references" placeholder="Referencias Geográficas" oninput="capitalizeInput(this)" required>{{ old('geographics_references') }}</textarea>
-        @error('geographics_references')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-success">Siguiente</button>
-        </div>
-        
-        <script>
-            function capitalizeInput(input) {
-                const value = input.value;
-                input.value = value.charAt(0).toUpperCase() + value.slice(1);
-            }
-        </script>
-    </form>
-</div>
-
+            <div class="text-center mt-4">
+                <a href="" class="btn btn-primary btn-lg">Finalizar</a>
+            </div>
+        </form>
     </section>
+
 
 
 

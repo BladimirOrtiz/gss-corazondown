@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/address.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/clarification.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <title>Registro de Datos de Domicilio </title>
+    <title>Lista de Quejas y Aclaraciones</title>
 </head>
 
 <body>
@@ -30,102 +30,62 @@
                     <h2 style="color: white; font-style: italic;">SISTEMA DE GESTIÓN Y SERVICIOS FUNDACIÓN CORAZÓN DOWN</h2>
                 </div>
             </ul>
-               </nav>
+        </nav>
     </head>
-    <br>
-    <br>
+
     <ul id="menu">
-    <li>
-        @if(auth()->check())
+        <li>
+            @if(auth()->check())
             <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
             <ul>
                 <li><a href="/logout">Cerrar Sesión</a></li>
             </ul>
-        @else
+            @else
             <a href="/login">Iniciar Sesión</a>
-        @endif
-    </li>
-</ul>
+            @endif
+        </li>
+    </ul>
+    <br>
+    <br>
 
     <section>
-    <div class="container d-flex">
-    <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
-        @csrf
-        <h2 class="text-center">REGISTRO DE DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
-
-         <!-- Campos adicionales -->
-        <label for="postal_code">Código Postal:</label>
-        <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal" value="{{ old('postal_code') }}" required>
-        @error('postal_code')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="state_name">Estado:</label>
-        <input type="text" id="state_name" name="state_name" placeholder="Estado" value="{{ old('state_name') }}" oninput="capitalizeInput(this)" required>
-        @error('state_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="munipality_name">Municipio:</label>
-        <input type="text" id="munipality_name" name="munipality_name" placeholder="Municipio" value="{{ old('munipality_name') }}" oninput="capitalizeInput(this)" required>
-        @error('munipality_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="colony_name"> Calle y Colonia:</label>
-        <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
-        @error('colony_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="outdor_number">Número Exterior:</label>
-        <input type="text" id="outdor_number" name="outdor_number" placeholder="Número Exterior" value="{{ old('outdor_number') }}" >
-        @error('outdor_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="internal_number">Número Interior:</label>
-        <input type="text" id="internal_number" name="internal_number" placeholder="Número Interior" value="{{ old('internal_number') }}">
-        @error('internal_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="geographics_references">Referencias Geográficas:</label>
-        <textarea id="geographics_references" name="geographics_references" placeholder="Referencias Geográficas" oninput="capitalizeInput(this)" required>{{ old('geographics_references') }}</textarea>
-        @error('geographics_references')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <div class="text-center">
-            <button type="submit" class="btn btn-success">Siguiente</button>
+    <div class="col-md-9 p-3 min-vh-100">
+    <h1>Tabla de Aclaraciones y Quejas</h1>
+    <div class="table-responsive">
+        <table class="table custom-table">
+            <thead>
+                <tr>
+                    <th>Folio del Proceso</th>
+                    <th>Categoría del Proceso</th>
+                    <th>Descripción del Proceso </th>
+                    <th>Fecha de Creación</th>
+                    <th>Estado del Proceso</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($clarifications as $clarification)
+                    <tr>
+                        <td>{{ $clarification->clarification_folio }}</td>
+                        <td>{{ $clarification->clarifications_category }}</td>
+                        <td>{{ $clarification->description_clarification }}</td>
+                        <td>{{ $clarification->clarification_date }}</td>
+                        <td>{{ $clarification->clarification_state }}</td>
+                       
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        <div class="container">
+            @if(session('success'))
+                <div class="alert alert-success" id="successMessage">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
-        
-        <script>
-            function capitalizeInput(input) {
-                const value = input.value;
-                input.value = value.charAt(0).toUpperCase() + value.slice(1);
-            }
-        </script>
-    </form>
+    </div>
 </div>
-
     </section>
-
-
 
     <br>
     <br>
@@ -161,10 +121,8 @@
     </footer>
 
 
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
 </body>
 </body>
 

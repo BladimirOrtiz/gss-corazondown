@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/address.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/personaldata.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <title>Registro de Datos de Domicilio </title>
+    <title>Registro de Datos Personales</title>
 </head>
 
 <body>
@@ -51,60 +51,48 @@
     <div class="container d-flex">
     <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
         @csrf
-        <h2 class="text-center">REGISTRO DE DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
+        <h2 class="text-center">REGISTRO DE DATOS MÉDICOS DEL ESTUDIANTE</h2>
 
-         <!-- Campos adicionales -->
-        <label for="postal_code">Código Postal:</label>
-        <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal" value="{{ old('postal_code') }}" required>
-        @error('postal_code')
+        <label for="medical_diagnostic">Diagnóstico Médico:</label>
+        <input type="text" id="medical_diagnostic" name="medical_diagnostic" placeholder="Diagnóstico Médico" value="{{ old('medical_diagnostic') }}" oninput="capitalizeInput(this)" required>
+        @error('student_name')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
         </small>
         @enderror
 
-        <label for="state_name">Estado:</label>
-        <input type="text" id="state_name" name="state_name" placeholder="Estado" value="{{ old('state_name') }}" oninput="capitalizeInput(this)" required>
-        @error('state_name')
+        <label for="blood_type">Tipo de Sangre:</label>
+        <input type="text" id="blood_type" name="blood_type" placeholder="Tipo de Sangre" value="{{ old('student_lastnames') }}" oninput="capitalizeInput(this)" required>
+        @error('student_lastnames')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
         </small>
         @enderror
+        <div>
+            <p>¿El estudiante padece de una alergia?</p>
+            <label>
+                <input type="radio" name="has_allergy" value="yes" onclick="toggleAllergyInput(true)" required>
+                Sí
+            </label>
+            <label>
+                <input type="radio" name="has_allergy" value="no" onclick="toggleAllergyInput(false)" required>
+                No
+            </label>
+        </div>
 
-        <label for="munipality_name">Municipio:</label>
-        <input type="text" id="munipality_name" name="munipality_name" placeholder="Municipio" value="{{ old('munipality_name') }}" oninput="capitalizeInput(this)" required>
-        @error('munipality_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
+        <div id="allergyInput" style="display: none;">
+            <label for="allergy_name">Nombre de la Alergia:</label>
+            <input type="text" id="allergy_name" name="allergy_name" value="{{ old('allergy_name') }}">
+            @error('allergy_name')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
+        </div>   
 
-        <label for="colony_name"> Calle y Colonia:</label>
-        <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
-        @error('colony_name')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="outdor_number">Número Exterior:</label>
-        <input type="text" id="outdor_number" name="outdor_number" placeholder="Número Exterior" value="{{ old('outdor_number') }}" >
-        @error('outdor_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="internal_number">Número Interior:</label>
-        <input type="text" id="internal_number" name="internal_number" placeholder="Número Interior" value="{{ old('internal_number') }}">
-        @error('internal_number')
-        <small class="txt-danger mt-1">
-            <strong>{{ $message }}</strong>
-        </small>
-        @enderror
-
-        <label for="geographics_references">Referencias Geográficas:</label>
-        <textarea id="geographics_references" name="geographics_references" placeholder="Referencias Geográficas" oninput="capitalizeInput(this)" required>{{ old('geographics_references') }}</textarea>
-        @error('geographics_references')
+        <label for="student_tutor">Consideraciones Adicionales:</label>
+        <input type="text" id="student_tutor" name="aditional_consideration" placeholder="Ejemplo: Necesita apoyo para trasladarse" value="{{ old('student_tutor') }}" oninput="capitalizeInput(this)" required>
+        @error('student_tutor')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
         </small>
@@ -113,15 +101,21 @@
         <div class="text-center">
             <button type="submit" class="btn btn-success">Siguiente</button>
         </div>
-        
-        <script>
-            function capitalizeInput(input) {
+    </form>
+
+    <script>
+      function capitalizeInput(input) {
                 const value = input.value;
                 input.value = value.charAt(0).toUpperCase() + value.slice(1);
             }
-        </script>
-    </form>
+    function toggleAllergyInput(show) {
+            const allergyInput = document.getElementById('allergyInput');
+            allergyInput.style.display = show ? 'block' : 'none';
+        }
+       
+    </script>
 </div>
+
 
     </section>
 

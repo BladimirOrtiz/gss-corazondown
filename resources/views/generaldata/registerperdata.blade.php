@@ -98,7 +98,7 @@
         @enderror
 
         <label for="student_cellphone">Teléfono Móvil del Tutor:</label>
-        <input type="text" id="student_cellphone" name="student_cellphone" placeholder="Teléfono Móvil" value="{{ old('student_cellphone') }}" required>
+        <input type="text" id="student_cellphone" name="student_cellphone" placeholder="Teléfono Móvil" value="{{ old('student_cellphone') }}"  required>
         @error('student_cellphone')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
@@ -106,7 +106,7 @@
         @enderror
 
         <label for="student_tutor">Tutor del Estudiante:</label>
-        <input type="text" id="student_tutor" name="student_tutor" placeholder="Tutor del Estudiante" value="{{ old('student_tutor') }}" required>
+        <input type="text" id="student_tutor" name="student_tutor" placeholder="Tutor del Estudiante" value="{{ old('student_tutor') }}" oninput="capitalizeInput(this)" required>
         @error('student_tutor')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
@@ -114,15 +114,16 @@
         @enderror
 
         <div class="text-center">
-            <button type="submit" class="btn btn-success">Registrarse</button>
+            <button type="submit" class="btn btn-success">Siguiente</button>
         </div>
     </form>
 
     <script>
-        function capitalizeInput(input) {
-            const value = input.value;
-            input.value = value.charAt(0).toUpperCase() + value.slice(1);
-        }
+          function capitalizeInput(input) {
+                const value = input.value;
+                input.value = value.charAt(0).toUpperCase() + value.slice(1);
+            }
+       
     </script>
 </div>
 

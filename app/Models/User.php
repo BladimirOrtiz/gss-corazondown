@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,6 +40,10 @@ class User extends Authenticatable
     public function medicalData()
     {
         return $this->hasOne(Student_Medical_Datas::class, 'fk_users_medical');
+    }
+    public function solicitudes()
+    {
+        return $this->hasMany(Clarifications_Family_User::class, 'fk_userc');
     }
 }
 
