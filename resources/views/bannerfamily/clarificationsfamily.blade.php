@@ -33,16 +33,19 @@
         </nav>
     </head>
 
+    <br>
+    <br>
+
     <ul id="menu">
         <li>
-            @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
                 <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-            @else
-            <a href="/login">Iniciar Sesión</a>
-            @endif
         </li>
     </ul>
     <br>
@@ -64,19 +67,18 @@
                 </div>
 
                 <div>
-            <label for="school_cycle">Seleccionar Ciclo Escolar:</label>
-            <select id="school_cycle" name="school_cycle" required>
-                <option selected disabled>Selecciona</option>
-                @foreach($schoolCycles as $cycle)
-                    <option value="{{ $cycle }}" {{ old('school_cycle') == $cycle ? 'selected' : '' }}>{{ $cycle }}</option>
-                @endforeach
-            </select>
-            @error('school_cycle')
-            <small class="txt-danger mt-1">
-                <strong>{{ $message }}</strong>
-            </small>
-            @enderror
-        </div>
+                    <label for="student_grender">Categoría del Proceso:</label>
+                    <select id="student_grender" name="clarifications_category" required>
+                        <option selected disabled>Selecciona</option>
+                        <option value="Aclaración" {{ old('clarifications_category') == 'Aclaración' ? 'selected' : '' }}>Aclaración</option>
+                        <option value="Queja" {{ old('clarifications_category') == 'Queja' ? 'selected' : '' }}>Queja</option>
+                    </select>
+                    @error('student_grender')
+                    <small class="txt-danger mt-1">
+                        <strong>{{ $message }}</strong>
+                    </small>
+                    @enderror
+                </div>
 
                 <div class="form-group"> <!-- Description Process  -->
                     <label for="full_name_id" class="control-label">Descripción del Proceso</label>
@@ -144,6 +146,23 @@
                         // ...
 
                         res.send('Usuario registrado con estado ' + state);
+                    });
+
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var menuToggle = document.getElementById('menuToggle');
+                        var submenu = document.getElementById('submenu');
+
+                        menuToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+                        });
+
+                        // Close submenu if clicking outside of it
+                        document.addEventListener('click', function(event) {
+                            if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                                submenu.style.display = 'none';
+                            }
+                        });
                     });
                 </script>
 

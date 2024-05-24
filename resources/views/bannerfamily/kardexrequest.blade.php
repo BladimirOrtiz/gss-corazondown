@@ -33,49 +33,52 @@
         </nav>
     </head>
 
+    <br>
+    <br>
+
     <ul id="menu">
         <li>
-            @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
                 <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-            @else
-            <a href="/login">Iniciar Sesión</a>
-            @endif
         </li>
     </ul>
     <br>
     <br>
 
     <section>
-    <div>
-        <!-- Primera subsección: Select para school_cycle -->
         <div>
-            <label for="school_cycle">Seleccionar Ciclo Escolar:</label>
-            <select id="school_cycle" name="school_cycle">
-                @foreach($schoolCycles as $cycle)
+            <!-- Primera subsección: Select para school_cycle -->
+            <div>
+                <label for="school_cycle">Seleccionar Ciclo Escolar:</label>
+                <select id="school_cycle" name="school_cycle">
+                    @foreach($schoolCycles as $cycle)
                     <option value="{{ $cycle }}">{{ $cycle }}</option>
-                @endforeach
-            </select>
-        </div>
+                    @endforeach
+                </select>
+            </div>
 
-        <!-- Segunda subsección: Tabla de datos -->
-        <div class="table-container">
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Mes de Pago</th>
-                        <th>Fecha de Pago</th>
-                        <th>Importe de Pago</th>
-                        <th>Tasa de Descuento</th>
-                        <th>Código QR</th>
-                        <th>Concepto de Pago</th>
-                        <th>Observación de Pago</th>
-                    </tr>
-                </thead>
-                <tbody id="pay_register_table_body">
-                    @foreach($schoolCycles as $schoolCycle)
+            <!-- Segunda subsección: Tabla de datos -->
+            <div class="table-container">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Mes de Pago</th>
+                            <th>Fecha de Pago</th>
+                            <th>Importe de Pago</th>
+                            <th>Tasa de Descuento</th>
+                            <th>Código QR</th>
+                            <th>Concepto de Pago</th>
+                            <th>Observación de Pago</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pay_register_table_body">
+                        @foreach($schoolCycles as $schoolCycle)
                         <tr>
                             <td>{{ $schoolCycle->pay_month }}</td>
                             <td>{{ $schoolCycle->pay_date }}</td>
@@ -85,44 +88,63 @@
                             <td>{{ $schoolCycle->pay_concept }}</td>
                             <td>{{ $schoolCycle->pay_observation }}</td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<script>
-document.getElementById('school_cycle').addEventListener('change', function() {
-    var selectedCycle = this.value;
-    fetch('/getPayRegistersByCycle', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ school_cycle: selectedCycle })
-    })
-    .then(response => response.json())
-    .then(data => {
-        var tableBody = document.getElementById('pay_register_table_body');
-        tableBody.innerHTML = '';
-        data.forEach(item => {
-            var row = '<tr>' +
-                '<td>' + item.pay_month + '</td>' +
-                '<td>' + item.pay_date + '</td>' +
-                '<td>' + item.pay_import + '</td>' +
-                '<td>' + item.discount_rate + '</td>' +
-                '<td>' + item.qr_code + '</td>' +
-                '<td>' + item.pay_concept + '</td' +
-                '<td>' + item.pay_observation + '</td>' +
-                '</tr>';
-            tableBody.innerHTML += row;
+    <script>
+        document.getElementById('school_cycle').addEventListener('change', function() {
+            var selectedCycle = this.value;
+            fetch('/getPayRegistersByCycle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        school_cycle: selectedCycle
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var tableBody = document.getElementById('pay_register_table_body');
+                    tableBody.innerHTML = '';
+                    data.forEach(item => {
+                        var row = '<tr>' +
+                            '<td>' + item.pay_month + '</td>' +
+                            '<td>' + item.pay_date + '</td>' +
+                            '<td>' + item.pay_import + '</td>' +
+                            '<td>' + item.discount_rate + '</td>' +
+                            '<td>' + item.qr_code + '</td>' +
+                            '<td>' + item.pay_concept + '</td' +
+                            '<td>' + item.pay_observation + '</td>' +
+                            '</tr>';
+                        tableBody.innerHTML += row;
+                    });
+                });
         });
-    });
-});
-</script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var menuToggle = document.getElementById('menuToggle');
+            var submenu = document.getElementById('submenu');
+
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+            });
+
+            // Close submenu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                    submenu.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
     </section>
 

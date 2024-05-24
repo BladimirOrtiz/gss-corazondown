@@ -28,18 +28,23 @@
         </div>
     </ul>  
 </nav>
+<br>
+<br>
+
 <ul id="menu">
-    <li>
-        @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
-                <li><a href="/logout">Cerrar Sesión</a></li>
+        <li>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
+                    <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                    <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-        @else
-            <a href="/login">Iniciar Sesión</a>
-        @endif
-    </li>
-</ul>
+        </li>
+    </ul>
+
+
 <br>
 <br>
 
@@ -67,7 +72,7 @@
             <div class="col-md-6">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-success btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
+                        <a href="/Kardexpdf" class="btn btn-success btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
                             <img src="img/icons/kardexpdf.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
                              GENERAR PDF DE LA CARTILLA DE PAGO
 
@@ -87,6 +92,25 @@
             </div>
         </div>
     </div>
+    <script>
+       document.addEventListener("DOMContentLoaded", function() {
+            var menuToggle = document.getElementById('menuToggle');
+            var submenu = document.getElementById('submenu');
+
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+            });
+
+            // Close submenu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                    submenu.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
 </section>
 
 <footer>

@@ -52,3 +52,9 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
     ->middleware('auth');    
     Route::post('/Kardexrequest', [App\Http\Controllers\BannerFamily\KardexRequestController::class, 'getPayRegistersByCycle'])->name('cycleschoolkardex')
     ->middleware('auth');   
+
+     //PDF
+     Route::get('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'generatePdf'])->name('kardexrequest')
+     ->middleware('auth');    
+ 
+ 
