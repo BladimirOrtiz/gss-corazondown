@@ -21,7 +21,7 @@ class ReadClarificationController extends Controller
          $userId = $user->id_user; // Asegúrate de usar el nombre correcto del campo de clave primaria
  
          // Obtener los registros de clarifications del usuario autenticado
-         $clarifications = Clarifications_Family_User::where('fk_userc', $userId)->get();
+         $clarifications = Clarifications_Family_User::where('fk_user_clarification', $userId)->get();
  
          // Pasar los datos a la vista
          return view('bannerfamily.readclarificationfamily', compact('clarifications'));

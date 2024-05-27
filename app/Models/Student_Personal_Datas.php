@@ -16,9 +16,9 @@ class Student_Personal_Datas extends Model
     protected $fillable = [
         'student_name',
         'student_lastnames',
-        'stuedent_brithday',
+        'student_birthday',
         'student_curp',
-        'student_grender',
+        'student_gender',
         'student_cellphone',
         'student_tutor',
         'fk_users',

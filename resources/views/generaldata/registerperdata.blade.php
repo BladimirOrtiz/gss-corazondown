@@ -35,18 +35,17 @@
     <br>
     <br>
     <ul id="menu">
-    <li>
-        @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
+        <li>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
                 <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-        @else
-            <a href="/login">Iniciar Sesión</a>
-        @endif
-    </li>
-</ul>
-
+        </li>
+    </ul>
     <section>
     <div class="container d-flex">
     <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
@@ -69,9 +68,9 @@
         </small>
         @enderror
 
-        <label for="stuedent_brithday">Fecha de Nacimiento:</label>
-        <input type="date" id="stuedent_brithday" name="stuedent_brithday" value="{{ old('stuedent_brithday') }}" required>
-        @error('stuedent_brithday')
+        <label for="student_birthday">Fecha de Nacimiento:</label>
+        <input type="date" id="student_birthday" name="student_birthday" value="{{ old('student_birthday') }}" required>
+        @error('student_birthday')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
         </small>
@@ -86,12 +85,12 @@
         @enderror
 
         <label for="student_grender">Género del Estudiante:</label>
-        <select id="student_grender" name="student_grender" required>
+        <select id="student_grender" name="student_gender" required>
             <option selected disabled>Selecciona</option>
-            <option value="Hombre" {{ old('student_grender') == 'Hombre' ? 'selected' : '' }}>Hombre</option>
-            <option value="Mujer" {{ old('student_grender') == 'Mujer' ? 'selected' : '' }}>Mujer</option>
+            <option value="Hombre" {{ old('student_gender') == 'Hombre' ? 'selected' : '' }}>Hombre</option>
+            <option value="Mujer" {{ old('student_gender') == 'Mujer' ? 'selected' : '' }}>Mujer</option>
         </select>
-        @error('student_grender')
+        @error('student_gender')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
         </small>
@@ -123,6 +122,23 @@
                 const value = input.value;
                 input.value = value.charAt(0).toUpperCase() + value.slice(1);
             }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                        var menuToggle = document.getElementById('menuToggle');
+                        var submenu = document.getElementById('submenu');
+
+                        menuToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+                        });
+
+                        // Close submenu if clicking outside of it
+                        document.addEventListener('click', function(event) {
+                            if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                                submenu.style.display = 'none';
+                            }
+                        });
+                    });
        
     </script>
 </div>

@@ -21,6 +21,6 @@ class MedicalStudentController extends Controller
         $medical_data = new Student_Medical_Datas($request->all());
         $medical_data->user()->associate(Auth::user());
         $medical_data->save();
-        return redirect('/generaldata')->with('success', 'DATOS REGISTRADOS CORRECTAMENTE');
+        return redirect('/welcomepanel')->with('success', 'DATOS REGISTRADOS CORRECTAMENTE');
     }
 }

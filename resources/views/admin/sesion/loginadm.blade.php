@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/personaldata.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/singin.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <title>Login del Administrador</title>
 
-    <title>Registro de Datos Personales</title>
 </head>
 
 <body>
@@ -30,68 +30,69 @@
                     <h2 style="color: white; font-style: italic;">SISTEMA DE GESTIÓN Y SERVICIOS FUNDACIÓN CORAZÓN DOWN</h2>
                 </div>
             </ul>
-               </nav>
+        </nav>
     </head>
     <br>
     <br>
-    <ul id="menu">
-    <li>
-        @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
-                <li><a href="/logout">Cerrar Sesión</a></li>
-            </ul>
-        @else
-            <a href="/login">Iniciar Sesión</a>
-        @endif
-    </li>
-</ul>
+    <section>
+        <div class="container d-flex">
+            <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form ">
+                @csrf
+                <h2 class="text-center">Iniciar Sesión como Administrador</h2>
+                <div class="text-center">
+                    <img src="img/icons/loginicon.png" class="rounded" id="login" alt="" style="max-width: 70%; height: auto;">
+                </div>
+                <div class="form-group"> <!-- User Name -->
+                    <label for="exampleInputName" class="control-label">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="user_name" name="username" placeholder="Usuario/Email">
+                    @error('user_name')
+                    <small class="txt-danger mt-1">
+                        <strong>{{ $message }}</strong>
+                    </small>
+                    @enderror
+                </div>
 
-<section class="container mt-5">
-        <form action="" method="get" class="m-auto bg-white p-5 rounded-sm shadow-lg">
-            @csrf
-            <h2 class="text-center">DATOS GENERALES</h2>
-            <h2 class="text-center">DATOS PERSONALES DEL ESTUDIANTE</h2>
-            @if ($userDetails)
-                <p><strong>Nombre:</strong> {{ $userDetails->student_name }}</p>
-                <p><strong>Apellidos:</strong> {{ $userDetails->student_lastnames }}</p>
-                <p><strong>Fecha de Nacimiento:</strong> {{ \Carbon\Carbon::parse($userDetails->stuedent_brithday)->format('d/m/Y') }}</p>
-                <p><strong>CURP:</strong> {{ $userDetails->student_curp }}</p>
-                <p><strong>Género:</strong> {{ $userDetails->student_grender }}</p>
-                <p><strong>Teléfono Móvil del Tutor:</strong> {{ $userDetails->student_cellphone }}</p>
-                <p><strong>Nombre del Tutor:</strong> {{ $userDetails->student_tutor }}</p>
-            @endif
+                <div class="form-group"> <!-- Password  -->
+                    <label for="full_name_id" class="control-label">Contraseña</label>
+                    <input type="password" class="form-control" id="email_address" name="password" placeholder="Contraseña">
+                    @error('password')
+                    <small class="txt-danger mt-1">
+                        <strong>{{ $message }}</strong>
+                    </small>
+                    @enderror
+                </div>
 
-            <h2 class="text-center mt-4">DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
-            @foreach ($addressData as $address)
-                <p><strong>Código Postal:</strong> {{ $address->postal_code }}</p>
-                <p><strong>Estado:</strong> {{ $address->state_name }}</p>
-                <p><strong>Municipio:</strong> {{ $address->munipality_name }}</p>
-                <p><strong>Calle y Colonia:</strong> {{ $address->colony_name }}</p>
-                <p><strong>Número Exterior:</strong> {{ $address->outdor_number }}</p>
-                <p><strong>Número Interior:</strong> {{ $address->internal_number }}</p>
-                <p><strong>Referencias Geográficas:</strong> {{ $address->geographics_references }}</p>
-            @endforeach
+                <br>
+              
+                <br>
+                <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Iniciar sesión</button>
+                </div>
 
-            <h2 class="text-center mt-4">DATOS MÉDICOS</h2>
-            @if ($medicalData)
-                <p><strong>Diagnóstico Médico:</strong> {{ $medicalData->medical_diagnostic }}</p>
-                <p><strong>Tipo de Sangre:</strong> {{ $medicalData->blood_type }}</p>
-                <p><strong>Nombre de la Alergia:</strong> {{ $medicalData->allergy_name }}</p>
-                <p><strong>Consideraciones Médicas Adicionales:</strong> {{ $medicalData->aditional_consideration }}</p>
-            @endif
+                <div class="container">
+                    @if(session('success'))
+                    <div class="alert alert-success" id="successMessage">
+                        {{ session('success') }}
+                    </div>
+                    @endif
 
-            <div class="text-center mt-4">
-                <a href="" class="btn btn-primary btn-lg">Finalizar</a>
-            </div>
-        </form>
+                    <!-- Resto del contenido de la página -->
+                </div>
+                <script>
+                    setTimeout(function() {
+                        var successMessage = document.getElementById('successMessage');
+                        if (successMessage) {
+                            successMessage.style.display = 'none';
+                        }
+                    }, 5000);
+                </script>
+
+            </form>
+        </div>
     </section>
-
-
-
-
-    <br>
-    <br>
+<br>
+<br>
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -125,9 +126,10 @@
 
 
 
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
+    <script src="js/scripts.js"></script>
 </body>
 </body>
 

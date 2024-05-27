@@ -27,10 +27,9 @@ Route::get('/logout', [App\Http\Controllers\Auth\UserFamily\LogoutController::cl
 Route::get('/personaldata', [App\Http\Controllers\Generaldatas\RegisterStudentController::class,'index']);
 Route::post('/personaldata', [App\Http\Controllers\Generaldatas\RegisterStudentController::class,'personaldataregister']);
 Route::get('/addressstudent', [App\Http\Controllers\Generaldatas\AddressStudentController::class,'index']);
-Route::post('/addressstudent', [App\Http\Controllers\Generaldatas\AddressStudentController::class,'registeraddress']);
+Route::post('/addressstudent', [App\Http\Controllers\Generaldatas\AddressStudentController::class,'registerAddress']);
 Route::get('/medicaldata', [App\Http\Controllers\Generaldatas\MedicalStudentController::class,'index']);
 Route::post('/medicaldata', [App\Http\Controllers\Generaldatas\MedicalStudentController::class,'savemedicalda']);
-Route::get('/generaldata', [App\Http\Controllers\Generaldatas\GeneralDataController::class,'getuserdata']);
 
 //Panel  Family 
 Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyController::class, 'index'])->name('welcomepanel')
@@ -57,4 +56,11 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
      Route::get('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'generatePdf'])->name('kardexrequest')
      ->middleware('auth');    
  
- 
+ //Administrator Zone
+
+ Route::get('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'index']);
+ Route::post('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'signupadmin']);
+// Admin Panel 
+
+Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelController::class, 'index'])->name('admin.panel')
+    ->middleware('auth');

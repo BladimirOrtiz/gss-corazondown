@@ -59,7 +59,7 @@
         </div>
         <div class="form-group"> <!-- Password Confirm  -->
             <label for="full_name_id" class="control-label">Rol del Usuario</label>
-            <input type="text" class="form-control" id="rol_system" name="rol_system" placeholder="Confirmar Contraseña" value="Padre de Familia">
+            <input type="text" class="form-control" id="rol_system" name="rol_system" placeholder="Confirmar Contraseña" value="Padre de Familia" readonly>
             @error('rol_user')
             <small class="txt-danger mt-1">
                 <strong>{{ $message }}</strong>

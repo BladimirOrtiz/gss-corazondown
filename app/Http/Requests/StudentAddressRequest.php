@@ -24,13 +24,13 @@ class StudentAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'postal_code' => 'required',
-            'state_name' => 'required',
-            'munipality_name' => 'required',
-            'colony_name' => 'required',
-            'outdor_number' => 'nullable',
-            'internal_number' => 'nullable',
-            'geographics_references' => 'required'
+            'postal_code' => 'required|string|max:50',
+            'state_name' => 'required|string|max:30',
+            'municipality_name' => 'required|string|max:100',
+            'colony_name' => 'required|string|max:100',
+            'outdoor_number' => 'nullable|string|max:5',
+            'internal_number' => 'nullable|string|max:5',
+            'geographics_references' => 'required|string|max:60',
         ];
     }
 }

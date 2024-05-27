@@ -26,9 +26,9 @@ class PersonalDataRequest extends FormRequest
         return [
             'student_name' => 'required',
             'student_lastnames' => 'required',
-            'stuedent_brithday' => 'required',
+            'student_birthday' => 'required',
             'student_curp' => 'required',
-            'student_grender' => 'required',
+            'student_gender' => 'required',
             'student_cellphone' => 'required',
             'student_tutor' => 'required',
             

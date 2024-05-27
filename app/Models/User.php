@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function addressData()
     {
-        return $this->hasMany(Student_Address_Datas::class, 'fk_users_addres');
+        return $this->hasMany(Student_Address_Datas::class, 'fk_users_address');
     }
 
     public function medicalData()
@@ -43,7 +43,11 @@ class User extends Authenticatable
     }
     public function solicitudes()
     {
-        return $this->hasMany(Clarifications_Family_User::class, 'fk_userc');
+        return $this->hasMany(Clarifications_Family_User::class, 'fk_user_clarification');
+    }
+    public function isAdmin()
+    {
+        return $this->rol_system === 'Administrador';
     }
 }
 

@@ -32,21 +32,41 @@
             </ul>
         </nav>
     </head>
-
+    <br>
+    <br>
+      <br>
     <ul id="menu">
         <li>
-            @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
                 <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-            @else
-            <a href="/login">Iniciar Sesión</a>
-            @endif
         </li>
     </ul>
+<br>
+<div class="container">
+<a class="button" href="/welcomepanel">
+      <span>
+        Inicio
+      </span>
+    </a>
+    <a class="button" href="/readclarification">
+      <span>
+        <i class="fas fa-list"></i> Lista de Procesos
+      </span>
+    </a>
+    <a class="button" href="/clarificationfamily">
+      <span>
+        Crear proceso
+      </span>
+    </a>
+  </div>
     <br>
-    <br>
+   
 
     <section>
     <div class="col-md-9 p-3 min-vh-100">

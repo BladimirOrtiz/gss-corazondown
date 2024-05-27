@@ -35,17 +35,17 @@
     <br>
     <br>
     <ul id="menu">
-    <li>
-        @if(auth()->check())
-            <a href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
-            <ul>
+        <li>
+            <a id="menuToggle" href="#">{{ auth()->user()->name ?? auth()->user()->username }}</a>
+            <ul id="submenu">
+                @if(auth()->check())
                 <li><a href="/logout">Cerrar Sesión</a></li>
+                @else
+                <li><a href="/login">Iniciar Sesión</a></li>
+                @endif
             </ul>
-        @else
-            <a href="/login">Iniciar Sesión</a>
-        @endif
-    </li>
-</ul>
+        </li>
+    </ul>
 
     <section>
     <div class="container d-flex">
@@ -91,7 +91,7 @@
         </div>   
 
         <label for="student_tutor">Consideraciones Adicionales:</label>
-        <input type="text" id="student_tutor" name="aditional_consideration" placeholder="Ejemplo: Necesita apoyo para trasladarse" value="{{ old('student_tutor') }}" oninput="capitalizeInput(this)" required>
+        <input type="text" id="additional_consideration" name="additional_consideration" placeholder="Ejemplo: Necesita apoyo para trasladarse" value="{{ old('additional_consideration') }}" oninput="capitalizeInput(this)" required>
         @error('student_tutor')
         <small class="txt-danger mt-1">
             <strong>{{ $message }}</strong>
@@ -99,7 +99,7 @@
         @enderror
 
         <div class="text-center">
-            <button type="submit" class="btn btn-success">Siguiente</button>
+            <button type="submit" class="btn btn-success">Finalizar</button>
         </div>
     </form>
 
@@ -112,6 +112,22 @@
             const allergyInput = document.getElementById('allergyInput');
             allergyInput.style.display = show ? 'block' : 'none';
         }
+        document.addEventListener("DOMContentLoaded", function() {
+                        var menuToggle = document.getElementById('menuToggle');
+                        var submenu = document.getElementById('submenu');
+
+                        menuToggle.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+                        });
+
+                        // Close submenu if clicking outside of it
+                        document.addEventListener('click', function(event) {
+                            if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                                submenu.style.display = 'none';
+                            }
+                        });
+                    });
        
     </script>
 </div>

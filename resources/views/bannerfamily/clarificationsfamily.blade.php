@@ -49,6 +49,19 @@
         </li>
     </ul>
     <br>
+    <div class="container">
+    <a class="button" href="/welcomepanel">
+      <span>
+        Inicio
+      </span>
+    </a>
+    <a class="button" href="/readclarification">
+      <span>
+        <i class="fas fa-list"></i> Lista de Procesos
+      </span>
+    </a>
+
+  </div>
     <br>
 
     <section>

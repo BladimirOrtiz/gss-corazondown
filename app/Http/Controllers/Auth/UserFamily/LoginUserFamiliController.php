@@ -43,7 +43,7 @@ class LoginUserFamiliController extends Controller
 
         // Verificar si existen datos en Student_Personal_Datas, Student_Address_Datas y Student_Medical_Datas
         $hasUserDetails = Student_Personal_Datas::where('fk_users', $userId)->exists();
-        $hasAddressData = Student_Address_Datas::where('fk_users_addres', $userId)->exists();
+        $hasAddressData = Student_Address_Datas::where('fk_users_address', $userId)->exists();
         $hasMedicalData = Student_Medical_Datas::where('fk_users_medical', $userId)->exists();
 
         if ($hasUserDetails && $hasAddressData && $hasMedicalData) {

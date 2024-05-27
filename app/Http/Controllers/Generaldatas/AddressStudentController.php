@@ -15,12 +15,21 @@ class AddressStudentController extends Controller
     } 
     
     
-    public function registeraddress(StudentAddressRequest $request)
+    public function registerAddress(StudentAddressRequest $request)
     {
-        $addressDatas = new Student_Address_Datas($request->all());
-        $addressDatas->user()->associate(Auth::user());
-        $addressDatas->save();
+        // Validar y obtener los datos del formulario
+        $data = $request->validated();
+
+        // Crear una nueva instancia del modelo con los datos validados
+        $addressData = new Student_Address_Datas($data);
+
+        // Asignar el ID del usuario autenticado
+        $addressData->fk_users_address = Auth::id();
+
+        // Guardar los datos en la base de datos
+        $addressData->save();
+
+        // Redirigir con un mensaje de éxito
         return redirect('/medicaldata')->with('success', 'DATOS REGISTRADOS CORRECTAMENTE');
     }
-
 }

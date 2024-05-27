@@ -24,7 +24,7 @@ class Clarifications_Family_User extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'fk_userc');
+        return $this->belongsTo(User::class, 'fk_user_clarification');
     }
 }
 

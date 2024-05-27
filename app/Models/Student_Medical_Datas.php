@@ -17,7 +17,7 @@ class Student_Medical_Datas extends Model
         'medical_diagnostic',
         'blood_type',
         'allergy_name',
-        'aditional_consideration',
+        'additional_consideration',
         'fk_users_medical',
     ];
 

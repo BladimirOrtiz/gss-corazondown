@@ -27,7 +27,7 @@ class MedicalStudentRequest extends FormRequest
             'medical_diagnostic' => 'required',
             'blood_type' => 'required',
             'allergy_name' => 'nullable',
-            'aditional_consideration' => 'nullable',
+            'additional_consideration' => 'nullable',
         ];
     }
 }
