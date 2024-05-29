@@ -54,7 +54,7 @@
             <div class="col-md-6">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <a href="/Kardexrequest" class="btn btn-dark d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
+                        <a href="/studentlist" class="btn btn-dark d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
                             <img src="img/icons/rp.png" class="rounded" id="logo" alt="" style="width: 40%; height: 50%;">
                           REGISTRAR PAGO
                         </a>

@@ -41,13 +41,19 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student_Medical_Datas::class, 'fk_users_medical');
     }
+
     public function solicitudes()
     {
         return $this->hasMany(Clarifications_Family_User::class, 'fk_user_clarification');
     }
+
+    public function payRegisters()
+    {
+        return $this->hasMany(Pay_Register::class, 'fk_user_pay_register');
+    }
+
     public function isAdmin()
     {
         return $this->rol_system === 'Administrador';
     }
 }
-

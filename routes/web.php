@@ -60,7 +60,18 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
 
  Route::get('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'index']);
  Route::post('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'signupadmin']);
-// Admin Panel 
 
+ // Admin Panel 
 Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelController::class, 'index'])->name('admin.panel')
+    ->middleware('auth');
+
+    Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelController::class, 'index'])->name('admin.panel')
+    ->middleware('auth');
+    Route::get('/studentlist', [App\Http\Controllers\Admin\Banner\DataStudentListController::class, 'index'])->name('admin.studentlist')
+    ->middleware('auth');
+    Route::get('/payregister/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'show'])->name('payregister.show')
+    ->middleware('auth');
+    Route::get('/payregister/create/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'showcreate'])->name('payregister.create')
+    ->middleware('auth');
+    Route::post('/payregister/create/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'payregister'])->name('payregister.store')
     ->middleware('auth');

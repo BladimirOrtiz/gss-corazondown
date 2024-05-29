@@ -14,10 +14,11 @@ class Pay_Register extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'pay_type',
         'school_cycle',
         'pay_month',
         'pay_date',
-        'pay_import	',
+        'pay_import',
         'discount_rate',
         'qr_code',
         'pay_concept',
