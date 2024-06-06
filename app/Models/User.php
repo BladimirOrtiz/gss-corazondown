@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Pay_Register::class, 'fk_user_pay_register');
     }
 
+    public function anwersclarification()
+    {
+        return $this->hasMany(Anwers_Clarification::class, 'fk_user_answers');
+    }
+
     public function isAdmin()
     {
         return $this->rol_system === 'Administrador';

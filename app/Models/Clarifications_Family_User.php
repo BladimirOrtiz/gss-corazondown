@@ -10,7 +10,7 @@ class Clarifications_Family_User extends Model
     use HasFactory;
 
     protected $table = 'clarifications';
-    protected $primaryKey = 'id_clarificatio'; // Asegúrate de que este sea el nombre correcto
+    protected $primaryKey = 'id_clarification'; // Asegúrate de que este sea el nombre correcto
 
     public $timestamps = false;
 
@@ -26,6 +26,12 @@ class Clarifications_Family_User extends Model
     {
         return $this->belongsTo(User::class, 'fk_user_clarification');
     }
+
+    public function anwersclarification()
+    {
+        return $this->hasMany(Anwers_Clarification::class, 'fk_clarification');
+    }
 }
+
 
 

@@ -72,7 +72,7 @@
             <div class="col-md-6">
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <a href="/Kardexpdf" class="btn btn-success btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
+                        <a href="/dataclarification" class="btn btn-success btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
                             <img src="img/icons/clarification.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
                             SECCIÓN DE ACLARACIONES Y QUEJAS
                         </a>

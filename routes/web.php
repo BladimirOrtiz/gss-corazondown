@@ -64,14 +64,31 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
  // Admin Panel 
 Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelController::class, 'index'])->name('admin.panel')
     ->middleware('auth');
-
-    Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelController::class, 'index'])->name('admin.panel')
+    // Listado de Padres de Familia
+       Route::get('/studentlist', [App\Http\Controllers\Admin\Banner\DataStudentListController::class, 'index'])->name('admin.studentlist')
     ->middleware('auth');
-    Route::get('/studentlist', [App\Http\Controllers\Admin\Banner\DataStudentListController::class, 'index'])->name('admin.studentlist')
-    ->middleware('auth');
+    //Dashboard de Pagos
     Route::get('/payregister/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'show'])->name('payregister.show')
     ->middleware('auth');
+   // CRUD
+    // Registro de Pago
     Route::get('/payregister/create/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'showcreate'])->name('payregister.create')
     ->middleware('auth');
     Route::post('/payregister/create/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'payregister'])->name('payregister.store')
     ->middleware('auth');
+
+    // Update   
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/payregister/{id_user}/{id_register}/edit', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'edit'])->name('payregister.edit');
+        Route::put('/payregister/{id_user}/{id_register}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'update'])->name('payregister.update');
+        Route::delete('/payregister/{id_user}/{id_register}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'destroy'])->name('payregister.destroy');
+    });
+    
+
+    //anwers clarification zone
+    Route::get('/dataclarification', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'index'])->name('admin.dataclarification') ->middleware('auth');
+    //Anwer Create
+    Route::get('/create-answer/{id_user}/{id_clarification}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'showCreate'])->name('answers.create') ->middleware('auth');
+    Route::post('/store-answer/{id_user}/{id_clarification}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'store'])->name('answers.store') ->middleware('auth');
+    Route::get('/answers_clarifications/{id_user}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'showanwerslist'])->name('answers_clarifications.show');
+

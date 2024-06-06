@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,30 +7,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/payregister.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <title>HISTORIAL DE PAGO</title>
+    <title>LISTA DE RESPUESTA</title>
 </head>
 
 <body>
     @auth
     <nav id="navbar" class="navbar navbar-light sticky-top" style="background-color: #292137">
-        <!-- BARRA DE NAVEGACION -->
         <ul id="mn" class="nav nav-pills">
             <div style="display: flex; justify-content: space-between; align-items: center; width: 90%;">
                 <a class="navbar-brand" href="{{ url('index.html') }}">
                     <img src="{{ asset('img/logo fcd.png') }}" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
                 </a>
-
                 <a class="navbar-brand" href="{{ url('index.html') }}">
                     <img src="{{ asset('img/gss.png') }}" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
                 </a>
-
                 <h2 style="color: white; font-style: italic;">SISTEMA DE GESTIÓN Y SERVICIOS FUNDACIÓN CORAZÓN DOWN</h2>
             </div>
         </ul>
     </nav>
-    <br>
-    <br>
+    <br><br>
 
     <ul id="menu">
         <li>
@@ -45,29 +39,23 @@
             </ul>
         </li>
     </ul>
-
     <br>
 
     <div class="container">
-    <a href="/adminepanel" class="btn btn-light" title="Panel del Administrador">
+        <a href="/adminepanel" class="btn btn-light" title="Panel del Administrador">
             <img src="{{ asset('img/icons/home.png') }}" alt="Imagen" width="50" height="50">
         </a>
-    <a href="/studentlist" class="btn btn-light" title="Listado de Padres">
+        <a href="/dataclarification" class="btn btn-light" title="Listado de Aclaraciones">
             <img src="{{ asset('img/icons/hlist.png') }}" alt="Imagen" width="50" height="50">
         </a>
-        <a href="{{ route('payregister.create', $user->id_user) }}" class="btn btn-light" title="Crear Registro de Pago">
-            <img src="{{ asset('img/icons/payr.png') }}" alt="Imagen" width="50" height="50">
-        </a>
-        <a href="{{ route('payregister.show', $user->id_user) }}" class="btn btn-light" title="Listado de Pagos">
-            <img src="{{ asset('img/icons/list.png') }}" alt="Imagen" width="50" height="50">
+     
         </a>
     </div>
-
     <br>
 
     <section>
         <div class="container">
-            <h2>Historial de Pagos de {{ $user->username }}</h2>
+            <h2>Historial de Respuestas de {{ $user->username }}</h2>
             @if(session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -77,79 +65,27 @@
                 <table class="styled-table">
                     <thead>
                         <tr>
-                            <th>Forma de Pago</th>
-                            <th>Ciclo Escolar</th>
-                            <th>Mes de Pago</th>
-                            <th>Fecha de Pago</th>
-                            <th>Importe de Pago</th>
-                            <th>Tasa de Descuento</th>
-                            <th>Código QR</th>
-                            <th>Concepto de Pago</th>
-                            <th>Observación de Pago</th>
-                            <th>Acción</th>
+                            <th>Folio de la Respuesta</th>
+                            <th>Encabezado de Clarificación</th>
+                            <th>Descripción de la Respuesta</th>
+                            <th>Observaciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                        $months = [
-                        '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                        '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                        '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                        ];
-                        @endphp
-                        @foreach($user->payRegisters as $register)
+                        @foreach($user->anwersclarification as $clarification)
                         <tr>
-                            <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
-                            <td data-label="Ciclo Escolar">{{ $register->school_cycle }}</td>
-                            <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
-                            <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
-                            <td data-label="Importe de Pago">{{ $register->pay_import }}</td>
-                            <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
-                            <td data-label="Código QR">
-                                <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code">
-                            </td>
-                            <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
-                            <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
-                            <td>
-                                <a href="{{ route('payregister.edit', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register]) }}" class="btn btn-light" title="Actualizar Registro del Pago">
-                                    <img src="https://png.pngtree.com/png-vector/20220608/ourmid/pngtree-update-icon-on-white-background-png-image_4915764.png" alt="Imagen" width="50" height="50">
-                                </a>
-                                <form action="{{ route('payregister.destroy', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register ]) }}" method="POST" class="mt-3">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-light" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')"> <img src="https://cdn-icons-png.flaticon.com/512/3807/3807871.png" alt="Imagen" width="50" height="50">
-                                    </button>
-                                </form>
-
-                                </form>
-                            </td>
+                            <td data-label="Folio de la Respuesta">{{ $clarification->folio_solution }}</td>
+                            <td data-label="Encabezado de Clarificación">{{ $clarification->clarification_header }}</td>
+                            <td data-label="Descripción de la Respuesta">{{ $clarification->answers_description }}</td>
+                            <td data-label="Observaciones">{{ $clarification->answers_observation }}</td>
+                            
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var menuToggle = document.getElementById('menuToggle');
-                var submenu = document.getElementById('submenu');
-
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
-                });
-
-                // Close submenu if clicking outside of it
-                document.addEventListener('click', function(event) {
-                    if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
-                        submenu.style.display = 'none';
-                    }
-                });
-            });
-        </script>
     </section>
-
 
     <footer>
         <div class="container">
@@ -185,9 +121,7 @@
 
     @guest
     <h1>POR FAVOR INICIA SESIÓN PARA AUTENTIFICARSE <a href="/sesion">Iniciar Sesión</a></h1>
-
-    <br>
-    <br>
+    <br><br>
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -219,10 +153,5 @@
         </div>
     </footer>
     @endguest
-
-    <script src="path/to/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
-
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTRO DE PAGO DEL PADRE DE FAMILIA</title>
+    <title>CREAR RESPUESTA</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/payregister.css') }}">
@@ -44,101 +44,46 @@
 
     <br>
     <div class="container">
-    <a href="{{ route('payregister.show', $user->id_user) }}" class="btn btn-light" title="Listado de Pagos">
+        <a href="{{ route('payregister.show', $user->id_user) }}" class="btn btn-light" title="Listado de Pagos">
             <img src="{{ asset('img/icons/list.png') }}" alt="Imagen" width="50" height="50">
-        </a>
         </a>
     </div>
     <br>
 
-
-
     <br>
 
-    <div class="container mt-5">
-        <h2 style="text-align: center;">Crear Registro de Pago para {{ $user->username }}</h2>
-        <form action="{{ route('payregister.store', $user->id_user) }}" method="POST">
+    <div class="container">
+        <h1 style="text-align: center;">Crear Respuesta para {{ $user->username }} con Folio {{ $clarification->clarification_folio }}</h1>
+
+        <form action="{{ route('answers.store', ['id_user' => $user->id_user, 'id_clarification' => $clarification->id_clarification]) }}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label for="pay_type" class="form-label">Forma de Pago</label>
-                <select id="student_grender" name="pay_type" required>
-                    <option selected disabled>Selecciona</option>
-                    <option value="Transferencia Electrónica" {{ old('pay_type') == 'TransferenciaElectrónica' ? 'selected' : '' }}>Transferencia Electrónica</option>
-                    <option value="En Efectivo" {{ old('pay_type') == 'EnEfectivo' ? 'selected' : '' }}>En Efectivo </option>
-                </select>
-                @error('pay_type')
+            <div class="form-group"> <!-- Process Folio -->
+                <label for="exampleInputName" class="control-label">Folio de la Respuesta</label>
+                <input type="text" class="form-control" name="folio_solution" id="folio_solution" value="{{ $folio }}" readonly>
+                @error('folio_solution')
                 <small class="txt-danger mt-1">
                     <strong>{{ $message }}</strong>
                 </small>
                 @enderror
             </div>
-            <div class="mb-3">
-                <label for="school_cycle" class="form-label">Ciclo Escolar</label>
-                <select class="form-control" id="school_cycle" name="school_cycle" required>
-                    @for ($year = date('Y'); $year >= 2000; $year--)
-                    <option value="{{ $year }}">{{ $year }}</option>
-                    @endfor
-                </select>
-            </div>
 
-            <div class="mb-3">
-                <label for="month" class="form-label">Mes de Pago</label>
-                <select class="form-control" id="month" name="pay_month" required>
-                    @foreach ([
-                    '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                    '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                    '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                    ] as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
-                    @endforeach
-                </select>
+            <div class="form-group">
+                <label for="clarification_header">Encabezado de Aclaración o Queja</label>
+                <input type="text" class="form-control" id="clarification_header" name="clarification_header" required>
             </div>
-
-
-            <div class="mb-3">
-                <label for="pay_date" class="form-label">Fecha de Pago</label>
-                <input type="date" class="form-control" id="pay_date" name="pay_date" required>
+            <div class="form-group">
+                <label for="answers_description">Descripción de la Respuesta</label>
+                <textarea class="form-control" id="answers_description" name="answers_description" required></textarea>
             </div>
-            <div class="mb-3">
-                <label for="pay_import" class="form-label">Importe de Pago</label>
-                <input type="number" class="form-control" id="pay_import" name="pay_import" required>
+            <div class="form-group">
+                <label for="answers_observation">Observaciones</label>
+                <textarea class="form-control" id="answers_observation" name="answers_observation"></textarea>
             </div>
-            <div class="mb-3 form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="discount_toggle" name="discount_toggle">
-                <label class="form-check-label" for="discount_toggle">¿El Alumno es Becado?</label>
-            </div>
-
-            <div class="mb-3">
-                <label for="discount_rate" class="form-label">Tasa de Descuento</label>
-                <input type="number" step="0.01" class="form-control" id="discount_rate" name="discount_rate" min="0" max="1" disabled>
-            </div>
-
-
-            <div class="mb-3">
-                <label for="pay_concept" class="form-label">Concepto de Pago</label>
-                <input type="text" class="form-control" id="pay_concept" name="pay_concept" required>
-            </div>
-            <div class="mb-3">
-                <label for="pay_observation" class="form-label">Observación de Pago</label>
-                <textarea class="form-control" id="pay_observation" name="pay_observation"></textarea>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Registrar Pago</button>
-            </div>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    var discountRateInput = document.getElementById('discount_rate');
-                    var discountToggle = document.getElementById('discount_toggle');
-
-                    discountToggle.addEventListener('change', function() {
-                        discountRateInput.disabled = !this.checked;
-                    });
-                });
-            </script>
-        </form>
+            <br>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Enviar Respuesta</button>
+                </div>        </form>
     </div>
-
     <br><br>
 
     <footer>
