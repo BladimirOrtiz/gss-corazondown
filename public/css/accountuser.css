@@ -200,6 +200,11 @@ footer{
         display: block;
     }
     
+    .table-container {
+        position: relative;
+        padding-bottom: 50px; /* Ajusta el valor según sea necesario */
+    }
+    
     .button-container {
         display: flex;
         gap: 10px; /* Espacio entre los botones, ajusta según sea necesario */
@@ -209,7 +214,4 @@ footer{
     .delete-form {
         margin: 0; /* Elimina el margen para que no afecte la alineación */
     }
-    .container {
-        display: flex;
-        justify-content: flex-end;
-      }
+    

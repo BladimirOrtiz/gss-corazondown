@@ -66,38 +66,15 @@
             <table class="styled-table">
                 <thead>
                     <tr>
-                        <th>Forma de Pago</th>
                         <th>Ciclo Escolar</th>
-                        <th>Mes de Pago</th>
-                        <th>Fecha de Pago</th>
-                        <th>Importe de Pago</th>
-                        <th>Tasa de Descuento</th>
-                        <th>Código QR</th>
-                        <th>Concepto de Pago</th>
-                        <th>Observación de Pago</th>
+                        <th>Generar PDFr</th>
+                       
                     </tr>
                 </thead>
                 <tbody id="pay_register_table_body">
-                    @php
-                    $months = [
-                    '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                    '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                    '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                    ];
-                    @endphp
-                    @foreach($payRegisters as $register)
                     <tr>
-                        <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
-                        <td data-label="Ciclo Escolar">{{ $register->school_cycle }}</td>
-                        <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
-                        <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
-                        <td data-label="Importe de Pago">{{ $register->pay_import }}</td>
-                        <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
-                        <td data-label="Código QR">
-                            <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code">
-                        </td>
-                        <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
-                        <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
+
+                    
                     </tr>
                     @endforeach
                 </tbody>

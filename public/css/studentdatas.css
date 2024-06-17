@@ -200,16 +200,14 @@ footer{
         display: block;
     }
     
-    .button-container {
-        display: flex;
-        gap: 10px; /* Espacio entre los botones, ajusta según sea necesario */
-        align-items: center; /* Alinea verticalmente los elementos al centro */
+    .table-container {
+        position: relative;
+        padding-bottom: 50px; /* Ajusta el valor según sea necesario */
     }
     
-    .delete-form {
-        margin: 0; /* Elimina el margen para que no afecte la alineación */
+    .button-container {
+        position: absolute;
+        bottom: 10px; /* Ajusta el valor según sea necesario */
+        left: 10px; /* Ajusta el valor según sea necesario */
     }
-    .container {
-        display: flex;
-        justify-content: flex-end;
-      }
+    

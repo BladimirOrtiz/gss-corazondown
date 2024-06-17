@@ -47,7 +47,7 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
 
     // Kardex Request
 
-    Route::get('/Kardexrequest', [App\Http\Controllers\BannerFamily\KardexRequestController::class, 'showPayRegisters'])->name('kardexrequest')
+    Route::get('/Kardexrequest', [App\Http\Controllers\BannerFamily\KardexRequestController::class, 'showPayRegisters'])->name('showPayRegisters')
     ->middleware('auth');    
     Route::post('/Kardexrequest', [App\Http\Controllers\BannerFamily\KardexRequestController::class, 'getPayRegistersByCycle'])->name('cycleschoolkardex')
     ->middleware('auth');   
@@ -91,4 +91,23 @@ Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelControll
     Route::get('/create-answer/{id_user}/{id_clarification}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'showCreate'])->name('answers.create') ->middleware('auth');
     Route::post('/store-answer/{id_user}/{id_clarification}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'store'])->name('answers.store') ->middleware('auth');
     Route::get('/answers_clarifications/{id_user}', [App\Http\Controllers\Admin\Banner\ClarificationDataController::class, 'showanwerslist'])->name('answers_clarifications.show');
+// Student Datas
+Route::get('/studentdatas', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'index'])->name('admin.studentdataslist');
 
+Route::middleware('auth')->group(function() {
+    Route::get('/studentdatas/{id_user}', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'show'])->name('student.show');
+    Route::get('/editstudent/{id_user}', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'edit'])->name('student.edit');
+    Route::post('/updatePersonalData/{id_user}', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'updatePersonalData'])->name('student.updatePersonalData');
+    Route::post('/updateAddressData/{id_user}', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'updateAddressData'])->name('student.updateAddressData');
+    Route::post('/updateMedicalData/{id_user}', [App\Http\Controllers\Admin\Banner\StudentDatasController::class, 'updateMedicalData'])->name('student.updateMedicalData');
+});
+
+Route::get('/accountuser', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'index'])->name('account.userlist')
+->middleware('auth');
+Route::get('/users/{id_user}/edit', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'edit'])->name('users.edit');
+Route::put('/users/{id_user}', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id_user}', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'destroy'])->name('users.destroy');
+Route::get('/createuser', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'showcreateuser'])->name('account.create')
+->middleware('auth');
+Route::post('/createuser', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'createuser'])->name('account.create')
+->middleware('auth');

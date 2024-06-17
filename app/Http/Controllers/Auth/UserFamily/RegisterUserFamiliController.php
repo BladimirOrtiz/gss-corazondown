@@ -14,7 +14,7 @@ class RegisterUserFamiliController extends Controller
        
        public function register(RegisterFamilyRequest $request){
         $user = User::create($request->validated());
-        return redirect('/sesion')->with('success', 'USUARIO REGISTRADO CORRECTAMENTE');
+        return redirect('/accountuser')->with('success', 'USUARIO REGISTRADO CORRECTAMENTE');
 
 
        }      

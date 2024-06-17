@@ -18,6 +18,9 @@ use App\Mail\FileAttachmentMail;
 
 class PDFController extends Controller
 {
+
+
+    
     public function generatePdf(Request $request)
     {
         // Obtener el ciclo escolar seleccionado del request

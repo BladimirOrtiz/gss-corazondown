@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/payregister.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/studentdatas.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <title>HISTORIAL DE PAGO</title>
+    <title>EDITAR DATOS DEL ESTUDIANTE</title>
 </head>
 
 <body>
@@ -49,108 +49,111 @@
     <br>
 
     <div class="container">
-    <a href="/adminepanel" class="btn btn-light" title="Panel del Administrador">
-            <img src="{{ asset('img/icons/home.png') }}" alt="Imagen" width="50" height="50">
-        </a>
-    <a href="/studentlist" class="btn btn-light" title="Listado de Padres">
-            <img src="{{ asset('img/icons/hlist.png') }}" alt="Imagen" width="50" height="50">
-        </a>
-        <a href="{{ route('payregister.create', $user->id_user) }}" class="btn btn-light" title="Crear Registro de Pago">
-            <img src="{{ asset('img/icons/payr.png') }}" alt="Imagen" width="50" height="50">
-        </a>
-        <a href="{{ route('payregister.show', $user->id_user) }}" class="btn btn-light" title="Listado de Pagos">
-            <img src="{{ asset('img/icons/list.png') }}" alt="Imagen" width="50" height="50">
-        </a>
+        <h1 style="text-align: center;">Editar Datos del Estudiante</h1>
+
+        <form action="{{ route('student.updatePersonalData', $user->id_user) }}" method="POST">
+            @csrf
+            <h2 style="text-align: center;">Datos Personales</h2>
+            <div class="form-group">
+                <label for="student_name">Nombre(s)</label>
+                <input type="text" class="form-control" id="student_name" name="student_name" value="{{ $user->studentPersonalDatas->student_name }}">
+            </div>
+            <div class="form-group">
+                <label for="student_lastnames">Apellidos</label>
+                <input type="text" class="form-control" id="student_lastnames" name="student_lastnames" value="{{ $user->studentPersonalDatas->student_lastnames }}">
+            </div>
+            <div class="form-group">
+                <label for="student_birthday">Fecha de Nacimiento</label>
+                <input type="date" class="form-control" id="student_birthday" name="student_birthday" value="{{ $user->studentPersonalDatas->student_birthday }}">
+            </div>
+            <div class="form-group">
+                <label for="student_curp">CURP</label>
+                <input type="text" class="form-control" id="student_curp" name="student_curp" value="{{ $user->studentPersonalDatas->student_curp }}">
+            </div>
+            <div class="form-group">
+                <label for="student_gender">Género</label>
+                <input type="text" class="form-control" id="student_gender" name="student_gender" value="{{ $user->studentPersonalDatas->student_gender }}">
+            </div>
+            <div class="form-group">
+                <label for="student_cellphone">Número Teléfonico del Tutor</label>
+                <input type="text" class="form-control" id="student_cellphone" name="student_cellphone" value="{{ $user->studentPersonalDatas->student_cellphone }}">
+            </div>
+            <div class="form-group">
+                <label for="student_tutor">Nombre del Tutor</label>
+                <input type="text" class="form-control" id="student_tutor" name="student_tutor" value="{{ $user->studentPersonalDatas->student_tutor }}">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">ACTUALIZAR DATOS</button>
+            </div>
+        </form>
+
+        <form action="{{ route('student.updateAddressData', $user->id_user) }}" method="POST">
+            @csrf
+            <h2 style="text-align: center;">Datos de Dirección</h2>
+            @foreach($user->addressData as $address)
+            <div class="form-group">
+                <label for="postal_code">Código Postal</label>
+                <input type="text" class="form-control" id="postal_code" name="postal_code" value="{{ $address->postal_code }}">
+            </div>
+            <div class="form-group">
+                <label for="state_name">Estado</label>
+                <input type="text" class="form-control" id="state_name" name="state_name" value="{{ $address->state_name }}">
+            </div>
+            <div class="form-group">
+                <label for="municipality_name">Municipio</label>
+                <input type="text" class="form-control" id="municipality_name" name="municipality_name" value="{{ $address->municipality_name }}">
+            </div>
+            <div class="form-group">
+                <label for="colony_name">Calle y Colonia</label>
+                <input type="text" class="form-control" id="colony_name" name="colony_name" value="{{ $address->colony_name }}">
+            </div>
+            <div class="form-group">
+                <label for="outdoor_number">Número Exterior</label>
+                <input type="text" class="form-control" id="outdoor_number" name="outdoor_number" value="{{ $address->outdoor_number }}">
+            </div>
+            <div class="form-group">
+                <label for="internal_number">Número Interior</label>
+                <input type="text" class="form-control" id="internal_number" name="internal_number" value="{{ $address->internal_number }}">
+            </div>
+            <div class="form-group">
+                <label for="geographics_references">Referencias Geográficas</label>
+                <input type="text" class="form-control" id="geographics_references" name="geographics_references" value="{{ $address->geographics_references }}">
+            </div>
+            @endforeach
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">ACTUALIZAR DATOS</button>
+            </div>
+        </form>
+
+        <form action="{{ route('student.updateMedicalData', $user->id_user) }}" method="POST">
+            @csrf
+            <h2 style="text-align: center;">Datos Médicos</h2>
+            <div class="form-group">
+                <label for="medical_diagnostic">Diagnóstico Médico</label>
+                <input type="text" class="form-control" id="medical_diagnostic" name="medical_diagnostic" value="{{ $user->medicalData->medical_diagnostic }}">
+            </div>
+            <div class="form-group">
+                <label for="blood_type">Tipo de Sangre</label>
+                <input type="text" class="form-control" id="blood_type" name="blood_type" value="{{ $user->medicalData->blood_type }}">
+            </div>
+            <div class="form-group">
+                <label for="allergy_name">Nombre de Alergia</label>
+                <input type="text" class="form-control" id="allergy_name" name="allergy_name" value="{{ $user->medicalData->allergy_name }}">
+            </div>
+            <div class="form-group">
+                <label for="additional_consideration">Consideraciones Adicionales</label>
+                <input type="text" class="form-control" id="additional_consideration" name="additional_consideration" value="{{ $user->medicalData->additional_consideration }}">
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">ACTUALIZAR DATOS</button>
+            </div>
+        </form>
     </div>
-
     <br>
-
-    <section>
-        <div class="container">
-            <h2>Historial de Pagos de {{ $user->username }}</h2>
-            @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-            @endif
-            <div class="table-container">
-                <table class="styled-table">
-                    <thead>
-                        <tr>
-                            <th>Forma de Pago</th>
-                            <th>Ciclo Escolar</th>
-                            <th>Mes de Pago</th>
-                            <th>Fecha de Pago</th>
-                            <th>Importe de Pago</th>
-                            <th>Tasa de Descuento</th>
-                            <th>Código QR</th>
-                            <th>Concepto de Pago</th>
-                            <th>Observación de Pago</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $months = [
-                        '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                        '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                        '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                        ];
-                        @endphp
-                        @foreach($user->payRegisters as $register)
-                        <tr>
-                            <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
-                            <td data-label="Ciclo Escolar">{{ $register->school_cycle }}</td>
-                            <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
-                            <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
-                            <td data-label="Importe de Pago">{{ $register->pay_import }}</td>
-                            <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
-                            <td data-label="Código QR">
-                                <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code">
-                            </td>
-                            <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
-                            <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
-                            <td class="button-container">
-                                <a href="{{ route('payregister.edit', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register]) }}" class="btn btn-light" title="Actualizar Registro del Pago">
-                                    <img src="https://png.pngtree.com/png-vector/20220608/ourmid/pngtree-update-icon-on-white-background-png-image_4915764.png" alt="Imagen" width="50" height="50">
-                                </a>
-                                <form action="{{ route('payregister.destroy', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register ]) }}" method="POST" class="delete-form"">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-light" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')"> <img src="https://cdn-icons-png.flaticon.com/512/3807/3807871.png" alt="Imagen" width="50" height="50">
-                                    </button>
-                                </form>
-
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var menuToggle = document.getElementById('menuToggle');
-                var submenu = document.getElementById('submenu');
-
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
-                });
-
-                // Close submenu if clicking outside of it
-                document.addEventListener('click', function(event) {
-                    if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
-                        submenu.style.display = 'none';
-                    }
-                });
-            });
-        </script>
-    </section>
-
-
+    <br>
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -226,3 +229,5 @@
 </body>
 
 </html>
+
+    
