@@ -53,9 +53,10 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
     ->middleware('auth');   
 
      //PDF
-     Route::get('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'generatePdf'])->name('kardexrequest')
+     Route::get('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'showPayRegisterspdf'])->name('showPayRegisterspdf')
      ->middleware('auth');    
- 
+     Route::post('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'generatePdf'])->name('generatepdf')
+     ->middleware('auth');    
  //Administrator Zone
 
  Route::get('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'index']);

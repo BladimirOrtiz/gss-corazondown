@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="https://i.pinimg.com/736x/d1/1d/47/d11d4792f3f30e8ec60195d583e1694b.jpg">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/payregister.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/kardex.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <title>Consultar Cartilla de Pago</title>
+    <title>Generar Cartilla de Pago PDF</title>
 </head>
+
 <body>
     <nav id="navbar" class="navbar navbar-light sticky-top" style="background-color: #292137">
         <ul id="mn" class="nav nav-pills">
@@ -38,53 +40,51 @@
     </ul>
 
     <div class="container">
-    <a class="button" href="/welcomepanel">
-      <span>
-        Inicio
-      </span>
-    </a>
- 
-  </div>
+        <a class="button" href="/welcomepanel">
+            <span>Inicio</span>
+        </a>
+    </div>
     <br><br>
     <section>
-    <div>
-        <!-- Formulario para school_cycle -->
-        <form method="POST" action="{{ route('cycleschoolkardex') }}">
-            @csrf
-            <div>
-                <label for="school_cycle">Seleccionar Ciclo Escolar:</label>
-                <select id="school_cycle" name="school_cycle" onchange="this.form.submit()">
-                    @foreach($schoolCycles as $cycle)
-                    <option value="{{ $cycle }}" {{ $cycle == $selectedCycle ? 'selected' : '' }}>{{ $cycle }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </form>
-        
-        <!-- Tabla de datos -->
         <div class="table-container">
+            <form method="GET" action="{{ route('showPayRegisterspdf') }}">
+                <div class="form-group">
+                    <label for="school_cycle">Seleccionar Ciclo Escolar</label>
+                    <select id="school_cycle" name="school_cycle" class="form-control" onchange="this.form.submit()">
+                        @foreach($schoolCycles as $cycle)
+                            <option value="{{ $cycle }}" {{ $cycle == $selectedCycle ? 'selected' : '' }}>
+                                {{ $cycle }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </form>
+            <br>
             <table class="styled-table">
                 <thead>
                     <tr>
                         <th>Ciclo Escolar</th>
-                        <th>Generar PDFr</th>
-                       
+                        <th>Generar PDF</th>
                     </tr>
                 </thead>
                 <tbody id="pay_register_table_body">
+                    @foreach($payRegisters as $register)
                     <tr>
-
-                    
+                        <td data-label="Ciclo Escolar">{{ $register->school_cycle }}</td>
+                        <td data-label="Generar PDF">
+                            <form method="POST" action="{{ route('generatepdf') }}">
+                                @csrf
+                                <input type="hidden" name="school_cycle" value="{{ $register->school_cycle }}">
+                                <button type="submit" class="btn btn-primary">Generar PDF</button>
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
-</section>
-
-
-
+        <br>
+    </section>
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">
@@ -116,4 +116,5 @@
         </div>
     </footer>
 </body>
+
 </html>
