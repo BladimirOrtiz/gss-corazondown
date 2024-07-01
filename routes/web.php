@@ -112,3 +112,9 @@ Route::get('/createuser', [App\Http\Controllers\Admin\Banner\AccountUserControll
 ->middleware('auth');
 Route::post('/createuser', [App\Http\Controllers\Admin\Banner\AccountUserController::class, 'createuser'])->name('account.create')
 ->middleware('auth');
+
+//Reset Password
+Route::get('/psswordreset', [App\Http\Controllers\Reset_PasswordController::class,'index']);
+Route::post('/psswordreset', [App\Http\Controllers\Reset_PasswordController::class,'sendResetLinkEmail']);
+Route::get('/reset-password/{token}', [App\Http\Controllers\Reset_PasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [App\Http\Controllers\Reset_PasswordController::class, 'reset'])->name('password.update');

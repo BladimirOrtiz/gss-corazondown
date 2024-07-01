@@ -49,109 +49,139 @@
 
     <section>
     <div class="container d-flex">
-    <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
-        @csrf
-        <h2 class="text-center">REGISTRO DE DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
+        <form action="" method="post" class="m-auto bg-white p-5 rounded-sm shadow-lg w-form">
+            @csrf
+            <h2 class="text-center">REGISTRO DE DATOS DE DOMICILIO DEL ESTUDIANTE</h2>
 
-
-        <label for="postal_code">Código Postal:</label>
+            <label for="postal_code">Código Postal:</label>
+            <div class="d-flex">
                 <input type="text" id="postal_code" name="postal_code" placeholder="Código Postal" value="{{ old('postal_code') }}" required>
-                @error('postal_code')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+                <button type="button" id="search_btn" class="btn btn-primary ml-2">Buscar</button>
+            </div>
+            @error('postal_code')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="state_name">Estado:</label>
-                <input type="text" id="state_name" name="state_name" placeholder="Estado" value="{{ old('state_name') }}" oninput="capitalizeInput(this)" required>
-                @error('state_name')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="state_name">Estado:</label>
+            <input type="text" id="state_name" name="state_name" placeholder="Estado" value="{{ old('state_name') }}" oninput="capitalizeInput(this)" required>
+            @error('state_name')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="municipality_name">Municipio:</label>
-                <input type="text" id="municipality_name" name="municipality_name" placeholder="Municipio" value="{{ old('municipality_name') }}" oninput="capitalizeInput(this)" required>
-                @error('municipality_name')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="municipality_name">Municipio:</label>
+            <input type="text" id="municipality_name" name="municipality_name" placeholder="Municipio" value="{{ old('municipality_name') }}" oninput="capitalizeInput(this)" required>
+            @error('municipality_name')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="colony_name">Calle y Colonia:</label>
-                <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
-                @error('colony_name')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="colony_name">Calle y Colonia:</label>
+            <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
+            @error('colony_name')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="outdoor_number">Número Exterior:</label>
-                <input type="text" id="outdoor_number" name="outdoor_number" placeholder="Número Exterior" value="{{ old('outdoor_number') }}">
-                @error('outdoor_number')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="outdoor_number">Número Exterior:</label>
+            <input type="text" id="outdoor_number" name="outdoor_number" placeholder="Número Exterior" value="{{ old('outdoor_number') }}">
+            @error('outdoor_number')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="internal_number">Número Interior:</label>
-                <input type="text" id="internal_number" name="internal_number" placeholder="Número Interior" value="{{ old('internal_number') }}">
-                @error('internal_number')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="internal_number">Número Interior:</label>
+            <input type="text" id="internal_number" name="internal_number" placeholder="Número Interior" value="{{ old('internal_number') }}">
+            @error('internal_number')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <label for="geographics_references">Referencias Geográficas:</label>
-                <input type="text" id="geographics_references" name="geographics_references" placeholder="Referencias" value="{{ old('geographics_references') }}">
-                @error('geographics_references')
-                <small class="txt-danger mt-1">
-                    <strong>{{ $message }}</strong>
-                </small>
-                @enderror
+            <label for="geographics_references">Referencias Geográficas:</label>
+            <input type="text" id="geographics_references" name="geographics_references" placeholder="Referencias" value="{{ old('geographics_references') }}">
+            @error('geographics_references')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success">Siguiente</button>
-                </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Siguiente</button>
+            </div>
+        </form>
+    </div>
+    <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success" id="successMessage">
+            {{ session('success') }}
         </div>
-        <div class="container">
-                    @if(session('success'))
-                    <div class="alert alert-success" id="successMessage">
-                        {{ session('success') }}
-                    </div>
-                    @endif
-        <script>
-            function capitalizeInput(input) {
-                const value = input.value;
-                input.value = value.charAt(0).toUpperCase() + value.slice(1);
+        @endif
+    </div>
+    <script>
+        function capitalizeInput(input) {
+            const value = input.value;
+            input.value = value.charAt(0).toUpperCase() + value.slice(1);
+        }
+
+        document.getElementById('search_btn').addEventListener('click', function() {
+            const postalCode = document.getElementById('postal_code').value;
+            fetch(`https://api.zippopotam.us/MX/${postalCode}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Código postal no encontrado.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.places && data.places.length > 0) {
+                        const place = data.places[0];
+                        document.getElementById('state_name').value = place['state'];
+                        document.getElementById('colony_name').value = place['place name'];
+                    } else {
+                        alert('Código postal no encontrado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al consultar la API:', error);
+                    alert('Hubo un error al consultar el código postal.');
+                });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var menuToggle = document.getElementById('menuToggle');
+            var submenu = document.getElementById('submenu');
+
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
+            });
+
+            // Close submenu if clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
+                    submenu.style.display = 'none';
+                }
+            });
+        });
+
+        setTimeout(function() {
+            var successMessage = document.getElementById('successMessage');
+            if (successMessage) {
+                successMessage.style.display = 'none';
             }
-            document.addEventListener("DOMContentLoaded", function() {
-                        var menuToggle = document.getElementById('menuToggle');
-                        var submenu = document.getElementById('submenu');
+        }, 5000);
+    </script>
+</section>
 
-                        menuToggle.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
-                        });
 
-                        // Close submenu if clicking outside of it
-                        document.addEventListener('click', function(event) {
-                            if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
-                                submenu.style.display = 'none';
-                            }
-                        });
-                    });
-                    setTimeout(function() {
-                        var successMessage = document.getElementById('successMessage');
-                        if (successMessage) {
-                            successMessage.style.display = 'none';
-                        }
-                    }, 5000);
-        </script>
-    </form>
-</div>
 
-    </section>
 
 
 

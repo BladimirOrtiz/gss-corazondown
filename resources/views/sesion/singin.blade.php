@@ -66,7 +66,7 @@
                 <div class="mt-3 text-center">
                     <a href="/registrar" class="btn btn-link" style="color: red;">Crear cuenta</a>
                     <span class="mx-2">|</span>
-                    <a href="#" class="btn btn-link" style="color: red;">¿Olvidaste tu contraseña?</a>
+                    <a href="/psswordreset" class="btn btn-link" style="color: red;">¿Olvidaste tu contraseña?</a>
                 </div>
                 <br>
                 <br>
