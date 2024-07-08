@@ -105,8 +105,12 @@
                 <input type="text" class="form-control" id="municipality_name" name="municipality_name" value="{{ $address->municipality_name }}">
             </div>
             <div class="form-group">
-                <label for="colony_name">Calle y Colonia</label>
+                <label for="colony_name">Colonia</label>
                 <input type="text" class="form-control" id="colony_name" name="colony_name" value="{{ $address->colony_name }}">
+            </div>
+            <div class="form-group">
+                <label for="street_name">Calle</label>
+                <input type="text" class="form-control" id="street_name" name="street_name" value="{{ $address->street_name }}">
             </div>
             <div class="form-group">
                 <label for="outdoor_number">Número Exterior</label>

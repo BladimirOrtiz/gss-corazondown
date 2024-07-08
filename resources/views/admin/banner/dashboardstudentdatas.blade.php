@@ -98,7 +98,8 @@
                         <th>Código Postal</th>
                         <th>Estado</th>
                         <th>Municipio</th>
-                        <th>Calle y Colonia</th>
+                        <th>Colonia</th>
+                        <th>Calle</th>
                         <th>Número Exterior</th>
                         <th>Número Interior</th>
                         <th>Referencias Geográficas</th>
@@ -111,6 +112,7 @@
                         <td>{{ $address->state_name }}</td>
                         <td>{{ $address->municipality_name }}</td>
                         <td>{{ $address->colony_name }}</td>
+                        <td>{{ $address->street_name }}</td>
                         <td>{{ $address->outdoor_number }}</td>
                         <td>{{ $address->internal_number }}</td>
                         <td>{{ $address->geographics_references }}</td>

@@ -62,7 +62,7 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
+                        <a href="/aboutsystem" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
                             <img src="img/icons/help.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
                             AYUDA
                         </a>

@@ -57,7 +57,7 @@
 
     <div class="container mt-5">
         <h2 style="text-align: center;">Crear Registro de Pago para {{ $user->username }}</h2>
-        <form action="{{ route('payregister.store', $user->id_user) }}" method="POST">
+        <form action="{{ route('payregister.create', $user->id_user) }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="pay_type" class="form-label">Forma de Pago</label>
@@ -73,13 +73,23 @@
                 @enderror
             </div>
             <div class="mb-3">
-                <label for="school_cycle" class="form-label">Ciclo Escolar</label>
-                <select class="form-control" id="school_cycle" name="school_cycle" required>
-                    @for ($year = date('Y'); $year >= 2000; $year--)
-                    <option value="{{ $year }}">{{ $year }}</option>
-                    @endfor
-                </select>
-            </div>
+    <label for="school_cycle" class="form-label">Ciclo Escolar</label>
+    <select class="form-control" id="school_cycle" name="school_cycle" required>
+        @php
+            $currentYear = date('Y');
+            $startYear = $currentYear - 1;
+            $endYear = $currentYear;
+            if (date('n') >= 8) {
+                $startYear = $currentYear;
+                $endYear = $currentYear + 1;
+            }
+        @endphp
+        @for ($year = $startYear; $year <= $endYear; $year++)
+            <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
+        @endfor
+    </select>
+</div>
+
 
             <div class="mb-3">
                 <label for="month" class="form-label">Mes de Pago</label>

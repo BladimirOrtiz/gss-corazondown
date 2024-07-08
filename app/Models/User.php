@@ -61,4 +61,11 @@ class User extends Authenticatable
     {
         return $this->rol_system === 'Administrador';
     }
+
+    public function isUserFamily()
+    {
+        return $this->rol_system === 'Padre de Familia';
+    }
+
+    
 }

@@ -11,11 +11,21 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class DashboardPayRegisterController extends Controller
 {
-    public function show($id_user)
+    public function show(Request $request, $id_user)
     {
-        $user = User::with('payRegisters')->findOrFail($id_user);
-        return view('admin.banner.dashboardpayregisterlist', compact('user'));
-    }   
+        $user = User::with(['payRegisters' => function($query) use ($request) {
+            if ($request->has('school_cycle') && $request->school_cycle != '') {
+                $query->where('school_cycle', $request->school_cycle);
+            }
+        }])->findOrFail($id_user);
+    
+        // Obtener los ciclos escolares disponibles para el selector
+        $schoolCycles = Pay_Register::select('school_cycle')->distinct()->pluck('school_cycle');
+    
+        return view('admin.banner.dashboardpayregisterlist', compact('user', 'schoolCycles'));
+    }
+    
+    
 
     public function showcreate($id_user)
     {
@@ -28,7 +38,7 @@ class DashboardPayRegisterController extends Controller
     {
         $request->validate([
             'pay_type' => 'required|string',
-            'school_cycle' => 'required|string',
+            'school_cycle' => 'required|string|regex:/^\d{4}-\d{4}$/', // Validar el formato del ciclo escolar
             'pay_month' => 'required|string',
             'pay_date' => 'required|date',
             'pay_import' => 'required|numeric',
@@ -65,6 +75,7 @@ class DashboardPayRegisterController extends Controller
     
         return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago creado exitosamente.');
     }
+    
 
     public function edit($id_user, $id_register)
     {
@@ -110,13 +121,5 @@ class DashboardPayRegisterController extends Controller
 
         return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago eliminado exitosamente.');
     }
-    
-
-
-
-
-
-    
-
-       
+          
 }

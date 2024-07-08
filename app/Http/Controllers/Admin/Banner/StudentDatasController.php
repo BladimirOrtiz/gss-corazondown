@@ -60,6 +60,7 @@ class StudentDatasController extends Controller
             'state_name' => 'required|string|max:255',
             'municipality_name' => 'required|string|max:255',
             'colony_name' => 'required|string|max:255',
+            'street_name' => 'required|string|max:255',
             'outdoor_number' => 'required|string|max:10',
             'internal_number' => 'nullable|string|max:10',
             'geographics_references' => 'nullable|string|max:255',

@@ -17,6 +17,7 @@ class Student_Address_Datas extends Model
         'state_name',
         'municipality_name',
         'colony_name',
+        'street_name',
         'outdoor_number',
         'internal_number',
         'geographics_references',

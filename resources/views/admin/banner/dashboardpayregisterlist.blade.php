@@ -49,10 +49,10 @@
     <br>
 
     <div class="container">
-    <a href="/adminepanel" class="btn btn-light" title="Panel del Administrador">
+        <a href="/adminepanel" class="btn btn-light" title="Panel del Administrador">
             <img src="{{ asset('img/icons/home.png') }}" alt="Imagen" width="50" height="50">
         </a>
-    <a href="/studentlist" class="btn btn-light" title="Listado de Padres">
+        <a href="/studentlist" class="btn btn-light" title="Listado de Padres">
             <img src="{{ asset('img/icons/hlist.png') }}" alt="Imagen" width="50" height="50">
         </a>
         <a href="{{ route('payregister.create', $user->id_user) }}" class="btn btn-light" title="Crear Registro de Pago">
@@ -66,6 +66,21 @@
     <br>
 
     <section>
+        <form method="GET" action="{{ route('payregister.show', $user->id_user) }}">
+            <div class="form-group">
+                <label for="school_cycle">Ciclo Escolar</label>
+                <select id="school_cycle" name="school_cycle" class="form-control">
+                    <option value="">Todos</option>
+                    @foreach($schoolCycles as $cycle)
+                        <option value="{{ $cycle }}">{{ $cycle }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+
+        <br>
+        <br>
         <div class="container">
             <h2>Historial de Pagos de {{ $user->username }}</h2>
             @if(session('success'))
@@ -112,15 +127,14 @@
                             <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
                             <td class="button-container">
                                 <a href="{{ route('payregister.edit', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register]) }}" class="btn btn-light" title="Actualizar Registro del Pago">
-                                    <img src="https://png.pngtree.com/png-vector/20220608/ourmid/pngtree-update-icon-on-white-background-png-image_4915764.png" alt="Imagen" width="50" height="50">
+                                    <img src="https://png.pngtree.com/png-vector/20220608/ourmid/pngtree-update-icon-on-white-background-png-image_4915764.png" alt="Imagen" width="30" height="50">
                                 </a>
                                 <form action="{{ route('payregister.destroy', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register ]) }}" method="POST" class="delete-form"">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-light" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?')"> <img src="https://cdn-icons-png.flaticon.com/512/3807/3807871.png" alt="Imagen" width="50" height="50">
+                                    <button type="submit" class="btn btn-light" title="Eliminar Registro del Pago">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" alt="Imagen" width="30" height="50">
                                     </button>
-                                </form>
-
                                 </form>
                             </td>
                         </tr>
@@ -129,28 +143,7 @@
                 </table>
             </div>
         </div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var menuToggle = document.getElementById('menuToggle');
-                var submenu = document.getElementById('submenu');
-
-                menuToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    submenu.style.display = (submenu.style.display === 'block') ? 'none' : 'block';
-                });
-
-                // Close submenu if clicking outside of it
-                document.addEventListener('click', function(event) {
-                    if (!menuToggle.contains(event.target) && !submenu.contains(event.target)) {
-                        submenu.style.display = 'none';
-                    }
-                });
-            });
-        </script>
     </section>
-
-
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">

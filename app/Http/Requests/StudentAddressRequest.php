@@ -28,6 +28,7 @@ class StudentAddressRequest extends FormRequest
             'state_name' => 'required|string|max:30',
             'municipality_name' => 'required|string|max:100',
             'colony_name' => 'required|string|max:100',
+            'street_name' => 'required|string|max:150',
             'outdoor_number' => 'nullable|string|max:5',
             'internal_number' => 'nullable|string|max:5',
             'geographics_references' => 'required|string|max:60',

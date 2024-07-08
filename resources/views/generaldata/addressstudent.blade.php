@@ -80,8 +80,15 @@
             </small>
             @enderror
 
-            <label for="colony_name">Calle y Colonia:</label>
-            <input type="text" id="colony_name" name="colony_name" placeholder="Calle y Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
+            <label for="colony_name">Colonia:</label>
+            <input type="text" id="colony_name" name="colony_name" placeholder="Colonia" value="{{ old('colony_name') }}" oninput="capitalizeInput(this)" required>
+            @error('colony_name')
+            <small class="txt-danger mt-1">
+                <strong>{{ $message }}</strong>
+            </small>
+            @enderror
+            <label for="state_name">Calle:</label>
+            <input type="text" id="street_name" name="street_name" placeholder="Calle " value="{{ old('street_name') }}" oninput="capitalizeInput(this)" required>
             @error('colony_name')
             <small class="txt-danger mt-1">
                 <strong>{{ $message }}</strong>

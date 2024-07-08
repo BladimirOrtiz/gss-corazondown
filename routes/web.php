@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/aboutsystem', function () {
+    return view('aboutsystem');
+});
 // Autentification Routes
 Route::get('/sesion', [App\Http\Controllers\Auth\UserFamily\LoginUserFamiliController::class,'view']);
 Route::post('/sesion', [App\Http\Controllers\Auth\UserFamily\LoginUserFamiliController::class,'signup']);
@@ -57,7 +60,9 @@ Route::get('/welcomepanel', [App\Http\Controllers\BannerFamily\HomeFamilyControl
      ->middleware('auth');    
      Route::post('/Kardexpdf', [App\Http\Controllers\PDF\PDFController::class, 'generatePdf'])->name('generatepdf')
      ->middleware('auth');    
- //Administrator Zone
+ 
+ 
+     //Administrator Zone
 
  Route::get('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'index']);
  Route::post('/sesionadmin', [App\Http\Controllers\Admin\Sesion\SinginAdminController::class,'signupadmin']);

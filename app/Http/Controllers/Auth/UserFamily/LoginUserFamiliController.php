@@ -32,6 +32,12 @@ class LoginUserFamiliController extends Controller
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
+        // Verificar si el usuario es "Padre de Familia"
+        if (!$this->isUserFamily($user)) {
+            return redirect()->to('sesion')
+                ->withErrors(trans('NO TIENE PERMISO PARA INICIAR SESIÓN'));
+        }
+
         Auth::login($user);
 
         return $this->authenticated($request, $user);
@@ -55,5 +61,11 @@ class LoginUserFamiliController extends Controller
         } else {
             return redirect('/personaldata');
         }
+    }
+
+    // Método para verificar si el usuario es "Padre de Familia"
+    private function isUserFamily($user)
+    {
+        return $user->rol_system === 'Padre de Familia';
     }
 }
