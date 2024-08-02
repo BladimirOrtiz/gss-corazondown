@@ -142,7 +142,7 @@
     @endauth
 
     @guest
-    <h1>POR FAVOR INICIA SESION PARA AUTENTIFICARSE <a href="/sesion">Iniciar Sesion</a></h1>
+    <h1>POR FAVOR INICIA SESION PARA AUTENTIFICARSE <a href="/welcome">Iniciar Sesion</a></h1>
 
     <br>
     <br>

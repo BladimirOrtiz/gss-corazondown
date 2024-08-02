@@ -46,45 +46,44 @@
     </div>
     <br><br>
     <section>
-        <div class="table-container">
-            <form method="GET" action="{{ route('showPayRegisterspdf') }}">
-                <div class="form-group">
-                    <label for="school_cycle">Seleccionar Ciclo Escolar</label>
-                    <select id="school_cycle" name="school_cycle" class="form-control" onchange="this.form.submit()">
-                        @foreach($schoolCycles as $cycle)
-                            <option value="{{ $cycle }}" {{ $cycle == $selectedCycle ? 'selected' : '' }}>
-                                {{ $cycle }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-            </form>
-            <br>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Ciclo Escolar</th>
-                        <th>Generar PDF</th>
-                    </tr>
-                </thead>
-                <tbody id="pay_register_table_body">
-                    @foreach($payRegisters as $register)
-                    <tr>
-                        <td data-label="Ciclo Escolar">{{ $register->school_cycle }}</td>
-                        <td data-label="Generar PDF">
-                            <form method="POST" action="{{ route('generatepdf') }}">
-                                @csrf
-                                <input type="hidden" name="school_cycle" value="{{ $register->school_cycle }}">
-                                <button type="submit" class="btn btn-primary">Generar PDF</button>
-                            </form>
-                        </td>
-                    </tr>
+    <div class="table-container">
+        <form method="GET" action="{{ route('showPayRegisterspdf') }}">
+            <div class="form-group">
+                <label for="school_cycle">Seleccionar Ciclo Escolar</label>
+                <select id="school_cycle" name="school_cycle" class="form-control" onchange="this.form.submit()">
+                    @foreach($schoolCycles as $cycle)
+                        <option value="{{ $cycle }}" {{ $cycle == $selectedCycle ? 'selected' : '' }}>
+                            {{ $cycle }}
+                        </option>
                     @endforeach
-                </tbody>
-            </table>
-        </div>
+                </select>
+            </div>
+        </form>
         <br>
-    </section>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Ciclo Escolar</th>
+                    <th>Generar PDF</th>
+                </tr>
+            </thead>
+            <tbody id="pay_register_table_body">
+                <tr>
+                    <td data-label="Ciclo Escolar">{{ $selectedCycle }}</td>
+                    <td data-label="Generar PDF">
+                        <form method="POST" action="{{ route('generatepdf') }}">
+                            @csrf
+                            <input type="hidden" name="school_cycle" value="{{ $selectedCycle }}">
+                            <button type="submit" class="btn btn-primary">Generar PDF</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+</section>
+
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">

@@ -15,11 +15,11 @@
     <!-- BARRA DE NAVEGACION -->
     <ul id="mn" class="nav nav-pills">
         <div style="display: flex; justify-content: space-between; align-items: center; width: 90%;">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="welcome">
                 <img src="img/logo fcd.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
             </a>
 
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="welcome">
                 <img src="img/gss.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
             </a>
 

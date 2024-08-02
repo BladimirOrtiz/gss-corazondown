@@ -8,7 +8,6 @@
     <title>Kardex PDF</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -99,31 +98,30 @@
                         <th>OBSERVACIÓN DE PAGO</th>
                         <th>CÓDIGO QR</th>
                     </tr>
-
                 </thead>
                 <tbody>
                     @php
-                    $months = [
-                    '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                    '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                    '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                    ];
+                        $months = [
+                            '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
+                            '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
+                            '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
+                        ];
                     @endphp
                     @foreach($payRegisters as $register)
-                    <tr>
-                        <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
-                        <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
-                        <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
-                        <td data-label="Importe de Pago">{{ $register->pay_import }}</td>
-                        <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
-                        <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
-                        <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
-                        <td data-label="Código QR">
-                            @if ($register->qr_code)
-                            <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code" width="90">
-                            @endif
-                        </td>
-                    </tr>
+                        <tr>
+                            <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
+                            <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
+                            <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
+                            <td data-label="Importe de Pago">${{ $register->pay_import }}</td>
+                            <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
+                            <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
+                            <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
+                            <td data-label="Código QR">
+                                @if ($register->qr_code)
+                                    <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code" width="90">
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

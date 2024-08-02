@@ -37,6 +37,7 @@ class PDFController extends Controller
         }
     }
     
+    
     public function generatePdf(Request $request)
     {
         // Obtener el ciclo escolar seleccionado del request
@@ -85,7 +86,6 @@ class PDFController extends Controller
         // Previsualizar el PDF
         return $pdf->stream('pay_register.pdf');
     }
-    
     
     
     

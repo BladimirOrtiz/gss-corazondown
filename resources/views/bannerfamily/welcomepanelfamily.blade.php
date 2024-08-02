@@ -64,7 +64,7 @@
                     <div class="col-md-12">
                         <a href="/clarificationfamily" class="btn btn btn-danger d-flex align-items-center justify-content-center mb-3 font-weight-bold font-size: 18px;">
                             <img src="img/icons/clarification.png" class="rounded" id="logo" alt="" style="width: 40%; height: 70%;">
-                            QUEJAS Y ACLARACIONES
+                           ACLARACIONES Y QUEJAS
                         </a>
                     </div>
                 </div>
@@ -145,7 +145,7 @@
 @endauth
 
 @guest
-    <h1>POR FAVOR INICIA SESION PARA AUTENTIFICARSE <a href="/sesion">Iniciar Sesion</a></h1>
+    <h1>POR FAVOR INICIA SESION PARA AUTENTIFICARSE <a href="/welcome">Iniciar Sesion</a></h1>
 
 <br>
 <br>

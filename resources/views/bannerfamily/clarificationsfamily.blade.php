@@ -93,8 +93,8 @@
                 </div>
 
                 <div class="form-group"> <!-- Description Process  -->
-                    <label for="full_name_id" class="control-label">Descripción del Proceso</label>
-                    <input type="text" class="form-control" id="description_clarification" name="description_clarification" placeholder="Descripción del Proceso<">
+                    <label for="full_name_id" class="control-label">Descripción del Proceso </label>
+                    <input type="text" class="form-control" id="description_clarification" name="description_clarification" placeholder="Descripción del Proceso">
                     @error('description_clarification')
                     <small class="txt-danger mt-1">
                         <strong>{{ $message }}</strong>
