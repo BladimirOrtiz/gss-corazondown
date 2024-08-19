@@ -93,7 +93,6 @@
                         <th>MES DE PAGO</th>
                         <th>FECHA DE PAGO</th>
                         <th>IMPORTE DE PAGO</th>
-                        <th>TASA DE DESCUENTO</th>
                         <th>CONCEPTO DE PAGO</th>
                         <th>OBSERVACIÓN DE PAGO</th>
                         <th>CÓDIGO QR</th>
@@ -113,7 +112,6 @@
                             <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
                             <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
                             <td data-label="Importe de Pago">${{ $register->pay_import }}</td>
-                            <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
                             <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
                             <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
                             <td data-label="Código QR">

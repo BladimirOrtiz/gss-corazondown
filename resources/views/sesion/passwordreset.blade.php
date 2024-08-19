@@ -10,6 +10,99 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <title>Restablecer Contraseña</title>
+    <style>
+/* Estilos generales para todos los dispositivos */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos específicos para dispositivos de escritorio */
+@media (min-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más grandes */
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Estilos específicos para smartphones */
+@media (max-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más pequeñas */
+    body {
+        font-size: 14px;
+    }
+}
+* Estilos para la barra de navegación */
+#navbar {
+    background-color: #2096ea;
+    padding: 10px 0; /* Añadir espacio en la parte superior e inferior */
+}
+
+#navbar ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0; /* Eliminar el margen */
+}
+
+#navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para hacer que la barra de navegación sea pegajosa en la parte superior */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+footer{
+    max-width: 100%;
+    height: auto;
+    background-color: red;
+
+}
+.social-icons .social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333; /* Cambia el color de los iconos de redes sociales según lo necesites */
+    font-size: 24px;
+}
+     /* Estilos para el formulario */
+     form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box; /* Asegura que el tamaño total del elemento incluya el borde y el relleno */
+    }
+
+    form input[type="submit"] {
+        width: 100%;
+        background-color: #2096ea;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    </style>
 </head>
 
 <body>

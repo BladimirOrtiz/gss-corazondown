@@ -84,12 +84,12 @@ Route::get('/adminepanel', [App\Http\Controllers\Admin\Banner\AdminPanelControll
     Route::post('/payregister/create/{id_user}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'payregister'])->name('payregister.store')
     ->middleware('auth');
 
-    // Update   
     Route::middleware(['auth'])->group(function () {
         Route::get('/payregister/{id_user}/{id_register}/edit', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'edit'])->name('payregister.edit');
         Route::put('/payregister/{id_user}/{id_register}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'update'])->name('payregister.update');
         Route::delete('/payregister/{id_user}/{id_register}', [App\Http\Controllers\Admin\Banner\DashboardPayRegisterController::class, 'destroy'])->name('payregister.destroy');
     });
+    
     
 
     //anwers clarification zone

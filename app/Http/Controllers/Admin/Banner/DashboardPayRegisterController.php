@@ -35,91 +35,129 @@ class DashboardPayRegisterController extends Controller
 
     
     public function payregister(Request $request, $id_user)
-    {
-        $request->validate([
-            'pay_type' => 'required|string',
-            'school_cycle' => 'required|string|regex:/^\d{4}-\d{4}$/', // Validar el formato del ciclo escolar
-            'pay_month' => 'required|string',
-            'pay_date' => 'required|date',
-            'pay_import' => 'required|numeric',
-            'pay_concept' => 'required|string',
-            'pay_observation' => 'nullable|string',
-            'discount_rate' => 'nullable|numeric',
-        ]);
-    
-        // Obtener los datos del formulario
-        $data = $request->only([
-            'pay_type', 'school_cycle', 'pay_month', 'pay_date',
-            'pay_import', 'pay_concept', 'pay_observation'
-        ]);
-    
-        // Agregar discount_rate si el toggle está activado
-        if ($request->has('discount_toggle')) {
-            $data['discount_rate'] = $request->input('discount_rate');
-        }
-    
-        // Convertir los datos a un string JSON
-        $jsonData = json_encode($data);
-    
-        // Generar el código QR
-        $qrCode = new QrCode($jsonData);
-        $writer = new PngWriter();
-        $qrCodeImage = $writer->write($qrCode)->getString();
-    
-        // Añadir el código QR a los datos
-        $data['qr_code'] = base64_encode($qrCodeImage);
-    
-        // Crear el registro de pago
-        $user = User::findOrFail($id_user);
-        $user->payRegisters()->create($data);
-    
-        return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago creado exitosamente.');
-    }
-    
+{
+    // Validar los datos de entrada
+    $request->validate([
+        'pay_type' => 'required|string',
+        'school_cycle' => 'required|string|regex:/^\d{4}-\d{4}$/',
+        'pay_month' => 'required|string',
+        'pay_date' => 'required|date',
+        'pay_import' => 'required|numeric',
+        'pay_concept' => 'required|string',
+        'pay_observation' => 'nullable|string',
+        'discount_rate' => 'nullable|numeric|min:0|max:1',
+        'payment' => 'nullable|numeric|min:0',
+        'remain_pay' => 'nullable|numeric|min:0',
+    ]);
 
-    public function edit($id_user, $id_register)
-    {
-        $user = User::findOrFail($id_user);
-        $register = $user->payRegisters()->findOrFail($id_register);
-        return view('admin.banner.datafamily.updatadatapay', compact('user', 'register'));
+    // Obtener los datos del formulario
+    $data = $request->only([
+        'pay_type', 'school_cycle', 'pay_month', 'pay_date',
+        'pay_import', 'pay_concept', 'pay_observation'
+    ]);
+
+    // Agregar discount_rate si el toggle está activado
+    if ($request->has('discount_toggle')) {
+        $data['discount_rate'] = $request->input('discount_rate');
     }
 
-    // Actualiza un registro de pago específico
-    public function update(Request $request, $id_user, $id_register)
-    {
-        $request->validate([
-            'pay_type' => 'required|string',
-            'school_cycle' => 'required|string',
-            'pay_month' => 'required|string',
-            'pay_date' => 'required|date',
-            'pay_import' => 'required|numeric',
-            'pay_concept' => 'required|string',
-            'pay_observation' => 'nullable|string',
-            'discount_rate' => 'nullable|numeric',
-        ]);
-
-        $user = User::findOrFail($id_user);
-        $register = $user->payRegisters()->findOrFail($id_register);
-
-        $data = $request->only([
-            'pay_type', 'school_cycle', 'pay_month', 'pay_date',
-            'pay_import', 'pay_concept', 'pay_observation', 'discount_rate'
-        ]);
-
-        $register->update($data);
-
-        return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago actualizado exitosamente.');
+    // Agregar payment y remain_pay si el toggle está activado
+    if ($request->has('payment_confirm')) {
+        $data['payment'] = $request->input('payment');
+        $data['remain_pay'] = $request->input('remain_pay');
     }
 
-    // Elimina un registro de pago específico
+    // Convertir los datos a un string JSON para el código QR
+    $jsonData = json_encode($data);
+
+    // Generar el código QR
+    $qrCode = new QrCode($jsonData);
+    $writer = new PngWriter();
+    $qrCodeImage = $writer->write($qrCode)->getString();
+
+    // Añadir el código QR a los datos
+    $data['qr_code'] = base64_encode($qrCodeImage);
+
+    // Crear el registro de pago
+    $user = User::findOrFail($id_user);
+    $user->payRegisters()->create($data);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago creado exitosamente.');
+}
+
+
+public function edit($id_user, $id_register)
+{
+    $user = User::findOrFail($id_user);
+    $register = $user->payRegisters()->findOrFail($id_register);
+    return view('admin.banner.datafamily.updatadatapay', compact('user', 'register'));
+}
+
+public function update(Request $request, $id_user, $id_register)
+{
+    // Validación de los datos de entrada
+    $request->validate([
+        'pay_type' => 'required|string',
+        'school_cycle' => 'required|string|regex:/^\d{4}-\d{4}$/',
+        'pay_month' => 'required|string',
+        'pay_date' => 'required|date',
+        'pay_import' => 'required|numeric',
+        'pay_concept' => 'required|string',
+        'pay_observation' => 'nullable|string',
+        'discount_rate' => 'nullable|numeric|min:0|max:1',
+        'payment' => 'nullable|numeric|min:0',
+        'remain_pay' => 'nullable|numeric|min:0',
+    ]);
+
+    // Buscar el usuario y el registro de pago
+    $user = User::findOrFail($id_user);
+    $register = $user->payRegisters()->findOrFail($id_register);
+
+    // Recoger los datos relevantes para actualizar
+    $data = $request->only([
+        'pay_type', 'school_cycle', 'pay_month', 'pay_date',
+        'pay_import', 'pay_concept', 'pay_observation'
+    ]);
+
+    // Manejo de la lógica del descuento
+    if ($request->has('discount_toggle')) {
+        $data['discount_rate'] = $request->input('discount_rate');
+    } else {
+        $data['discount_rate'] = null; // Si no hay descuento, se elimina el valor
+    }
+
+    // Manejo de la lógica del abono
+    if ($request->has('payment_confirm')) {
+        $data['payment'] = $request->input('payment');
+        $data['remain_pay'] = $request->input('remain_pay');
+    } else {
+        $data['payment'] = null; // Si no hay abono, se elimina el valor
+        $data['remain_pay'] = null; // Si no hay abono, se elimina el valor
+    }
+
+    // Actualizar el registro de pago
+    $register->update($data);
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago actualizado exitosamente.');
+}
+
+    
     public function destroy($id_user, $id_register)
-    {
-        $user = User::findOrFail($id_user);
-        $register = $user->payRegisters()->findOrFail($id_register);
+{
+    // Buscar el usuario por su ID
+    $user = User::findOrFail($id_user);
+    
+    // Buscar el registro de pago específico asociado al usuario
+    $register = $user->payRegisters()->findOrFail($id_register);
 
-        $register->delete();
+    // Eliminar el registro de pago
+    $register->delete();
 
-        return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago eliminado exitosamente.');
-    }
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('payregister.show', $id_user)->with('success', 'Registro de pago eliminado exitosamente.');
+}
+
           
 }

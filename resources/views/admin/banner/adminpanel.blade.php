@@ -9,6 +9,102 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <title>PANEL DEL ADMINISTRADOR</title>
+    <style>
+    /* Estilos para la barra de navegación */
+
+/* Estilos para el cuerpo */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos para la barra de navegación */
+#navbar {
+    background-color: #2096ea;
+    padding: 10px 0; /* Añadir espacio en la parte superior e inferior */
+}
+
+#navbar ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0; /* Eliminar el margen */
+}
+
+#navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para hacer que la barra de navegación sea pegajosa en la parte superior */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.logo{
+    width: 20%;
+    height: 30%;
+}
+footer{
+    max-width: 100%;
+    height: auto;
+    background-color: red;
+
+}
+.social-icons .social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333; /* Cambia el color de los iconos de redes sociales según lo necesites */
+    font-size: 24px;
+}
+
+#menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu > li > a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+#submenu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+}
+
+#submenu li {
+    margin: 0;
+}
+
+#submenu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #6c757d;
+    color: white;
+}
+
+#submenu a:hover {
+    background-color: #5a6268;
+}
+
+#menuToggle:focus + #submenu,
+#submenu:hover {
+    display: block;
+}
+    
+    </style>
 </head>
 <body>
 @auth

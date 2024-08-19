@@ -19,6 +19,8 @@ class Pay_Register extends Model
         'pay_month',
         'pay_date',
         'pay_import',
+        'payment',
+        'remain_pay',
         'discount_rate',
         'qr_code',
         'pay_concept',

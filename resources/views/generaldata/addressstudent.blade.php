@@ -10,6 +10,167 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <title>Registro de Datos de Domicilio </title>
+
+    <style>
+        /* Estilos generales para todos los dispositivos */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos específicos para dispositivos de escritorio */
+@media (min-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más grandes */
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Estilos específicos para smartphones */
+@media (max-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más pequeñas */
+    body {
+        font-size: 14px;
+    }
+}
+* Estilos para la barra de navegación */
+#navbar {
+    background-color: #2096ea;
+    padding: 10px 0; /* Añadir espacio en la parte superior e inferior */
+}
+
+#navbar ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0; /* Eliminar el margen */
+}
+
+#navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para hacer que la barra de navegación sea pegajosa en la parte superior */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+footer{
+    max-width: 100%;
+    height: auto;
+    background-color: red;
+
+}
+.social-icons .social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333; /* Cambia el color de los iconos de redes sociales según lo necesites */
+    font-size: 24px;
+}
+     /* Estilos para el formulario */
+     form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="date"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .d-flex {
+        display: flex;
+        align-items: center;
+    }
+
+    .ml-2 {
+        margin-left: 10px;
+    }
+
+    .btn {
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    small.txt-danger {
+        color: red;
+    }
+    #menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #menu > li > a {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+    
+    #submenu {
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+    }
+    
+    #submenu li {
+        margin: 0;
+    }
+    
+    #submenu a {
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    #submenu a:hover {
+        background-color: #5a6268;
+    }
+    
+    #menuToggle:focus + #submenu,
+    #submenu:hover {
+        display: block;
+    }
+    
+    </style>
 </head>
 
 <body>
@@ -111,7 +272,7 @@
             </small>
             @enderror
 
-            <label for="geographics_references">Referencias Geográficas:</label>
+            <label for="geographics_references">Referencias:</label>
             <input type="text" id="geographics_references" name="geographics_references" placeholder="Referencias" value="{{ old('geographics_references') }}">
             @error('geographics_references')
             <small class="txt-danger mt-1">

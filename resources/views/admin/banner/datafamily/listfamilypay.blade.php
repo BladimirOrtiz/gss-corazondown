@@ -10,6 +10,220 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <title>LISTADO DE ESTUDIANTES</title>
+    <style>
+     /* Estilos generales para todos los dispositivos */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Estilos específicos para dispositivos de escritorio */
+@media (min-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más grandes */
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Estilos específicos para smartphones */
+@media (max-width: 1920px) {
+    /* Aquí puedes añadir estilos específicos para pantallas más pequeñas */
+    body {
+        font-size: 14px;
+    }
+}
+* Estilos para la barra de navegación */
+#navbar {
+    background-color: #2096ea;
+    padding: 10px 0; /* Añadir espacio en la parte superior e inferior */
+}
+
+#navbar ul {
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+    margin: 0; /* Eliminar el margen */
+}
+
+#navbar .navbar-brand img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos adicionales para hacer que la barra de navegación sea pegajosa en la parte superior */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+footer{
+    max-width: 100%;
+    height: auto;
+    background-color: red;
+
+}
+.social-icons .social-icon {
+    display: inline-block;
+    margin-right: 10px;
+    color: #333; /* Cambia el color de los iconos de redes sociales según lo necesites */
+    font-size: 24px;
+}
+     /* Estilos para el formulario */
+     form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    form input[type="text"],
+    form input[type="date"],
+    form select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+
+    form input[type="submit"] {
+        width: 100%;
+        background-color: #2096ea;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    small.txt-danger {
+        color: red;
+    }
+    .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+    }
+    
+    .styled-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 18px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    
+    .styled-table th, .styled-table td {
+        padding: 12px 15px;
+    }
+    
+    .styled-table th {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: center;
+    }
+    
+    .styled-table tr:nth-child(even) {
+        background-color: #f3f3f3;
+    }
+    
+    .styled-table tr:hover {
+        background-color: #f1f1f1;
+    }
+    
+    .styled-table td {
+        text-align: center;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 600px) {
+        .styled-table thead {
+            display: none;
+        }
+        .styled-table, .styled-table tbody, .styled-table tr, .styled-table td {
+            display: block;
+            width: 100%;
+        }
+        .styled-table tr {
+            margin-bottom: 15px;
+        }
+        .styled-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+        }
+        .styled-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 0;
+            width: 50%;
+            padding-left: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+    }
+    #menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #menu > li > a {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+    
+    #submenu {
+        display: none;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+    }
+    
+    #submenu li {
+        margin: 0;
+    }
+    
+    #submenu a {
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    #submenu a:hover {
+        background-color: #5a6268;
+    }
+    
+    #menuToggle:focus + #submenu,
+    #submenu:hover {
+        display: block;
+    }
+    
+    .button-container {
+        display: flex;
+        gap: 10px; /* Espacio entre los botones, ajusta según sea necesario */
+        align-items: center; /* Alinea verticalmente los elementos al centro */
+    }
+    
+    .delete-form {
+        margin: 0; /* Elimina el margen para que no afecte la alineación */
+    }
+     
+    </style>
 </head>
 
 <body>
