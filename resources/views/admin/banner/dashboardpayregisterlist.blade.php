@@ -332,6 +332,9 @@
                             <th>Fecha de Pago</th>
                             <th>Importe de Pago</th>
                             <th>Tasa de Descuento</th>
+                            <th>Abono</th>
+                            <th>Pagos Restantes</th>
+
                             <th>Código QR</th>
                             <th>Concepto de Pago</th>
                             <th>Observación de Pago</th>
@@ -354,6 +357,10 @@
                             <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
                             <td data-label="Importe de Pago">{{ $register->pay_import }}</td>
                             <td data-label="Tasa de Descuento">{{ $register->discount_rate * 100 }}%</td>
+
+                            <td data-label="Abono">{{ $register->payment }}</td>
+                            <td data-label="Pagos Restantes">{{ $register->remain_pay }}</td>
+
                             <td data-label="Código QR">
                                 <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code">
                             </td>
@@ -364,11 +371,11 @@
                                     <img src="https://png.pngtree.com/png-vector/20220608/ourmid/pngtree-update-icon-on-white-background-png-image_4915764.png" alt="Imagen" width="30" height="50">
                                 </a>
 
-                                <form action="{{ route('payregister.destroy', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register ]) }}" method="POST" class="delete-form"">
+                                <form action="{{ route('payregister.destroy', ['id_user' => $user->id_user, 'id_register' => $register->id_pay_register ]) }}" method="POST" class="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type=" submit" class="btn btn-light" title="Eliminar Registro del Pago">
-                                    <img src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" alt="Imagen" width="30" height="50">
+                                    <button type="submit" class="btn btn-light" title="Eliminar Registro del Pago">
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3405/3405244.png" alt="Imagen" width="30" height="50">
                                     </button>
                                 </form>
                             </td>
@@ -379,6 +386,7 @@
             </div>
         </div>
     </section>
+
     <footer>
         <div class="container">
             <div class="row justify-content-center align-items-center">

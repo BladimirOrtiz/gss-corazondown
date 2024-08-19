@@ -95,31 +95,34 @@
                         <th>IMPORTE DE PAGO</th>
                         <th>CONCEPTO DE PAGO</th>
                         <th>OBSERVACIÓN DE PAGO</th>
+                        <th>ABONO</th>
+                        <th>PAGOS RESTANTES</th>
                         <th>CÓDIGO QR</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                        $months = [
-                            '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
-                            '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
-                            '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
-                        ];
+                    $months = [
+                    '01' => 'Enero', '02' => 'Febrero', '03' => 'Marzo', '04' => 'Abril',
+                    '05' => 'Mayo', '06' => 'Junio', '07' => 'Julio', '08' => 'Agosto',
+                    '09' => 'Septiembre', '10' => 'Octubre', '11' => 'Noviembre', '12' => 'Diciembre'
+                    ];
                     @endphp
                     @foreach($payRegisters as $register)
-                        <tr>
-                            <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
-                            <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
-                            <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
-                            <td data-label="Importe de Pago">${{ $register->pay_import }}</td>
-                            <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
-                            <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
-                            <td data-label="Código QR">
-                                @if ($register->qr_code)
-                                    <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code" width="90">
-                                @endif
-                            </td>
-                        </tr>
+                    <tr>
+                        <td data-label="Forma de Pago">{{ $register->pay_type }}</td>
+                        <td data-label="Mes de Pago">{{ $months[$register->pay_month] }}</td>
+                        <td data-label="Fecha de Pago">{{ $register->pay_date }}</td>
+                        <td data-label="Importe de Pago">${{ $register->pay_import }}</td>
+                        <td data-label="Concepto de Pago">{{ $register->pay_concept }}</td>
+                        <td data-label="Observación de Pago">{{ $register->pay_observation }}</td>
+                        <td data-label="Abono">${{ $register->payment }}</td>
+                        <td data-label="Pagos Restantes">${{ $register->remain_pay }}</td>
+                        <td data-label="Código QR">
+                            <img src="data:image/png;base64,{{ $register->qr_code }}" alt="QR Code" style="width: 80px; height: 80px;">
+                        </td>
+
+                    </tr>
                     @endforeach
                 </tbody>
             </table>
